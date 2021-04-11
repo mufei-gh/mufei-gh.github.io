@@ -4,17 +4,17 @@ import { Link } from 'react-router-dom';
 import Main from '../layouts/Main';
 
 import Cell from '../components/Projects/Cell';
-import data from '../data/projects';
+import data from '../data/developingProjects';
 
 const Projects = () => (
   <Main
-    title="Projects"
+    title="DevelopingProjects"
     description="Learn about Mufei's projects."
   >
-    <article className="post" id="projects">
+    <article className="post" id="developingprojects">
       <header>
         <div className="title">
-          <h2 data-testid="heading"><Link to="/projects">Design Projects</Link></h2>
+          <h2 data-testid="heading"><Link to="/projects">Developing Projects</Link></h2>
         </div>
       </header>
       {data.map((project) => (
