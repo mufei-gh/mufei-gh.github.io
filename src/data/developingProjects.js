@@ -5,8 +5,8 @@ const data = [
     link: 'https://mufei-projects.github.io',
     image: '/images/projects/MardiGrasParade.png',
     desc:
-      'Just a simple endless collection game. You will control the person to collect' +
-       'candis and beads thrown by floates',
+      'Just a simple endless collection game. You will control the person to collect'
+      + ' candies and beads thrown by floates',
   },
   {
     title: 'Emotion Visiualization',
