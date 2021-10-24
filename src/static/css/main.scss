@@ -49,6 +49,11 @@
 	@import 'components/table';
 	@import 'components/hamburger';
 	@import 'components/markdown';
+	@import 'components/banner';
+	@import 'components/blog';
+	@import 'components/arrow';
+	@import 'components/articles';
+	@import 'components/prototype';
 
 
 // Layout.
@@ -60,9 +65,19 @@
 	@import 'layout/intro';
 	@import 'layout/footer';
 	@import 'layout/menu';
+	@import 'layout/global';
 
 	@import 'pages/contact';
 	@import 'pages/notFound';
 	@import 'pages/resume';
 	@import 'pages/skills';
 	@import 'pages/stats';
+	@import 'pages/newKidsTimes';
+	@import 'pages/way2Supermarket';
+	@import 'pages/emotionV';
+	@import 'pages/mardiGrasParade';
+	@import 'pages/aboutWeb.scss';
+
+// COMMON
+
+	@import 'libs/utils';

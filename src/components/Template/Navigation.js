@@ -8,6 +8,7 @@ import routes from '../../data/routes';
 const Navigation = () => (
   <header id="header">
     <h1 className="index-link">
+      <img src="/images/projects/logo.png" alt="logo" className="logo" />
       {routes.filter((l) => l.index).map((l) => (
         <Link key={l.label} to={l.path}>{l.label}</Link>
       ))}

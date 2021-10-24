@@ -5,17 +5,17 @@ const routes = [
     path: '/',
   },
   {
-    label: 'Resume',
-    path: '/resume',
+    label: 'Work',
+    path: '/work',
   },
   {
-    label: 'Design Projects',
-    path: '/design',
+    label: 'About',
+    path: '/about',
   },
-  {
-    label: 'Developing Projects',
-    path: '/developing',
-  },
+  // {
+  //   label: 'Developing Projects',
+  //   path: '/developing',
+  // },
 ];
 
 export default routes;

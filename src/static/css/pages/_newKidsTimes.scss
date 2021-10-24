@@ -1,0 +1,245 @@
+
+.new-kids-times {
+  display: flex;
+  flex-direction: column;
+
+  .upperTitle{
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    color: black;
+    opacity: 0.8;
+    font-size: 22px;
+    line-height: 1.5em;
+    padding-bottom: 0;
+  }
+
+  .header {
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 1.5em;
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
+    > div {
+      display: inline-block;
+    }
+    .part1 {
+      color: #0D0D46;
+    }
+
+    .part2 {
+      color: #00ADB5;
+    }
+  }
+
+  .subheader {
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    display: flex;
+    flex-direction: row;
+    color: black;
+    font-size: 22px;
+    line-height: 1.5em;
+    margin-bottom: 1.82em;
+    opacity: 0.8;
+
+    .middle{
+      flex: 1
+    }
+  }
+
+  .subtitle{
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size: 28px;
+    margin-top: 1em;
+    color:#0D0D46;
+    line-height: 1.5em;
+  }
+
+  .personaTitle{
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size: 28px;
+    margin-top: 1.4286em;
+    color:#0D0D46;
+    line-height: 1.5em;
+  }
+
+  .subContent{
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    font-size:22px;
+    margin-top:0.27em;
+    line-height: 1.5em;
+    opacity:0.8;
+  }
+  .prototype-container{
+    margin-top: 3.75em;
+    margin-bottom: 3.75em;
+    padding-bottom: 2.25em!important;
+    .button-container-down{
+      padding-top: 0;
+      padding-bottom: 0;
+      .left-button{
+        color:#0D0D46;
+        margin-right: 10em;
+      }
+    }
+  }
+
+  .researchTitle{
+    font-size: 36px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 0.389em;
+    color: black;
+    line-height: 1.5em;
+    opacity: 0.8;
+  }
+
+  .highlight{
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size:22px;
+    color:#0D0D46;
+    line-height: 1.5em;
+  }
+
+  .question{
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    font-size:22px;
+    margin-top:0.27em;
+    margin-bottom: 0.27em;
+    line-height: 1.5em;
+    opacity:0.8;
+  }
+
+  .finding{
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size:22px;
+    margin-bottom:1.667em;
+    opacity:0.8;
+  }
+
+  .features{
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size: 28px;
+    margin-top: 1em;
+    color:#0D0D46;
+    line-height: 1.5em;
+  }
+  .researchFeatures{
+    margin-top: 2.5em;
+  }
+
+  .featuresContent{
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    font-size:22px;
+    margin-top:0.27em;
+    line-height: 1.5em;
+    opacity: 0.8;
+  }
+
+  .featuresPara{
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    font-size:22px;
+    margin-top:1.273em;
+    line-height: 1.5em;
+    opacity: 0.8;
+  }
+  .bigTitle{
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size:36px;
+    margin-top: 1.667em;
+    margin-bottom: 0.389em;
+    color:black;
+    line-height: 1.5em;
+    opacity:0.8;
+  }
+
+  .appTitle{
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size:36px;
+    margin-top: 1.667em;
+    margin-bottom: 0;
+    color:black;
+    line-height: 1.5em;
+    opacity:0.8;
+  }
+
+  .designContent{
+    font-size: 22px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    margin-top:0.27em;
+    line-height: 1.5em;
+    opacity: 0.8;
+  }
+
+  .workflow{
+    margin:0;
+  }
+
+  .persona{
+    margin-top: 0.33em;
+    margin-bottom: 0;
+  }
+
+  .full-width {
+    width: 100%!important;
+    max-width: none;
+    margin-top: 6em;
+    margin-bottom: 0;
+  }
+
+
+  .visual-design {
+    color: black;
+  }
+
+  .user-tasks-work-flow {
+    color: #384259;
+  }
+
+
+  .space-2 {
+    margin-left: 1em;
+  }
+
+  .green-font {
+    color: #438D09;
+  }
+
+  .dot {
+    display: inline-block;
+    width: 0.4em;
+    height: 0.4em;
+    border-radius: 1em;
+    background-color: #0D0D46;
+    margin-right: 4px;
+  }
+
+  .attention{
+    margin-top: 0.27em;
+    margin-bottom: -0.5em;
+  }
+
+  .vision{
+    margin-top: 0.27em;
+    margin-bottom: -0.5em;
+  }
+  .back-to-portfolio{
+    font-size: 36px;
+    font-weight: 700;
+    font-family: 'Lato', sans-serif;
+  }
+}

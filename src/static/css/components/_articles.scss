@@ -1,0 +1,84 @@
+
+.blog-container {
+
+
+  * {
+    margin: 0;
+  }
+  .regular-text {
+    // font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: unset;
+    color: #0f0f0f;
+    font-weight: 350;
+    font-size: 24px;
+    line-height: 1.167em;
+    line-break: auto;
+    // margin-bottom: 0.5em;
+
+    .dis-contents {
+      display: contents;
+    }
+
+    .color-00adb5 {
+      color: #00ADB5;
+    }
+
+    .color-0D0D46 {
+      color: #0D0D46;
+    }
+
+    ul {
+      padding-left: 1.5em;
+      li {
+        position: relative;
+        // list-style-type:circle;
+        margin-left: 0;
+        padding-left: 0;
+
+        ::marker {
+          font-size: 3em;
+        }
+      }
+      // li::before {
+      //   content: '·';
+      //   position:absolute;
+      //   font-size: 1.1em;
+      //   // left: -0.8em;
+      // }
+    }
+
+  }
+
+  .title {
+    // font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    // font-family: auto, Helvetica, sans-serif;
+    font-family: unset;
+    text-transform: none;
+    letter-spacing: 0.008em;
+    font-weight: 650;
+    font-size: 28px;
+    color: #0D0D46;
+    margin-top: 1em;
+  }
+
+  img {
+    width: 100%;
+    max-width: 1200px;
+    margin-top: 2em;
+    margin-bottom:2em;
+  }
+}
+
+.text-center {
+  text-align: center;
+}
+
+.no-margin {
+  margin: 0 !important;
+}
+
+.back-to-portfolio {
+  height: 4em;
+  font-size: 2em;
+  font-weight: 600;
+}

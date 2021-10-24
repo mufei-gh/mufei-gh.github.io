@@ -1,0 +1,300 @@
+.way2Supermarket {
+  display: flex;
+  flex-direction: column;
+
+
+  .no-margin {
+    margin: 0 !important;
+  }
+
+  .full-width {
+    width: 100%!important;
+    max-width: none;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  .type{
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    font-size:22px;
+    opacity:0.8;
+    line-height: 1.5em;
+  }
+  .bigTitle{
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size: 36px;
+    color: #187C34;
+    margin-top:0.25em;
+    line-height: 1.5em;
+  }
+  .subtitle{
+    display: flex;
+    flex-direction: row;
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    margin-top:0.4em;
+    font-size: 22px;
+    margin-bottom:1.82em;
+    color: black;
+    opacity:0.8;
+    line-height:1.5em;
+    .middle{
+      flex: 1;
+    }
+  }
+
+  .goals{
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    margin-top:1em;
+    font-size: 28px;
+    color: black;
+    opacity:0.8;
+    line-height: 1.5em;
+  }
+  .summary{
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    font-size:22px;
+    line-height: 1.5em;
+    opacity: 0.8;
+    margin-top: 0.27em;
+  }
+  .color-187c34{
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    color: #187c34;
+    display: contents;
+    line-height: 1.5em;
+  }
+  .title{
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size:36px;
+    margin-bottom:0.333em;
+    margin-top:1.11em;
+    color:black;
+    opacity:0.8;
+    line-height: 1.5em;
+  }
+  .researchTitle{
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size:36px;
+    margin-top:0;
+    color:black;
+    opacity:0.8;
+    line-height: 1.5em;
+    margin-bottom: 0;
+  }
+  .intro{
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    font-size:22px;
+    color:black;
+    opacity:0.8;
+    line-height: 1.5em;
+    margin-top: 0.27em;
+    margin-bottom: 1.82em;
+  }
+  .bold-black{
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    color: black;
+    opacity: 0.8;
+    display: contents;
+    line-height: 1.3em;
+  }
+  .media{
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size: 28px;
+    color: black;
+    opacity:0.8;
+    line-height: 1.5em;
+    margin-bottom: 0;
+    margin-top: 1em;
+  }
+  .mediaContent{
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    margin-top:0.27em;
+    font-size: 22px;
+    color: black;
+    opacity:0.8;
+    line-height: 1.5em;
+  }
+  .time{
+    margin-top: 0.375em;
+    margin-bottom:-0.6em;
+  }
+  .mask{
+    margin-top: 0.375em;
+    margin-bottom:-0.6em;
+  }
+  .amazon{
+    margin-top: 0.375em;
+    margin-bottom:-0.48em;
+  }
+  .transition{
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    margin-top:1.82em;
+    font-size: 22px;
+    color: black;
+    opacity:0.8;
+    line-height: 1.5em;
+  }
+  .question{
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    margin-top:1.4285em;
+    font-size: 28px;
+    color: black;
+    opacity:0.8;
+    line-height: 1.5em;
+    margin-bottom: 0;
+  }
+  .survey{
+    margin-bottom: 3.125em;
+  }
+  .dataContainer{
+    display: flex;
+    position: relative;
+    flex-direction:row;
+    gap:1.6em;
+    margin-top: 0.375em;
+    .percentage{
+      display:flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: 28px;
+      color: black;
+      opacity:0.8;
+      line-height: 1.5em;
+    }
+    .data{
+      font-family: 'Lato', sans-serif;
+      font-weight: 400;
+      font-size: 22px;
+      color: black;
+      opacity:0.8;
+      line-height: 1.5em;
+    }
+  }
+  .reasons{
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    margin-top:0.33em;
+    font-size: 22px;
+    color: black;
+    opacity:0.8;
+    line-height: 1.3em;
+    margin-bottom: 0;
+  }
+  .personaContainer{
+    display: flex;
+    flex-direction: row;
+  }
+  .pic{
+    height: 119.0727310180664px;
+    width: 119.0727310180664px;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  .researchPhoto{
+    margin-top: 1.75em;
+    margin-bottom: 3.5em;
+  }
+  .workflowPhoto{
+    margin-top: 3.125em;
+    margin-bottom: 3.125em;
+  }
+  .testingPic{
+    display:flex;
+    flex-direction: row;
+  }
+  .full-width{
+    margin-top: 3.125em;
+    margin-bottom: 0;
+  }
+  .name{
+    margin-top: 1.389em;
+    margin-bottom: 1.11em;
+  }
+  .testingTitle{
+    margin-top: 1.389em;
+    margin-bottom: 0;
+  }
+  .designSec{
+    margin-top: 0;
+    margin-bottom: 6.25em;
+  }
+  .designHighlight{
+    margin-top: 1.75em;
+    margin-bottom: 6.25em;
+  }
+  .designPic{
+    margin-top: 0.875em;
+    margin-bottom: 0;
+  }
+  .cartPic{
+    width:47.46%;
+    display: block;
+    margin: 0.875em auto 0;
+  }
+  .testing{
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    font-size: 22px;
+    margin-top: 0.27em;
+    margin-bottom: 1.82em;
+    line-height: 1.5em;
+    opacity: 0.8;
+  }
+  .testingPara{
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    font-size: 22px;
+    margin-top: 1.27em;
+    margin-bottom: 0;
+    line-height: 1.5em;
+    opacity: 0.8;
+  }
+  .testingPic{
+    margin-top: 2.5em;
+    margin-bottom: 3.125em;
+  }
+  .feature{
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size: 28px;
+    color: black;
+    opacity:0.8;
+    line-height: 1.5em;
+    margin-bottom: 0;
+    margin-top: 1.4286em;
+  }
+  .featureContent{
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    margin-top:0.27em;
+    font-size: 22px;
+    color: black;
+    opacity:0.8;
+    line-height: 1.5em;
+  }
+  .blog-container{
+    // opacity: 1.0!important;
+  }
+  .back-to-portfolio{
+    font-size: 36px;
+    font-weight: 700;
+    font-family: 'Lato', sans-serif;
+  }
+
+}

@@ -1,7 +1,9 @@
 import React, { Suspense, lazy } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Main from './layouts/Main'; // fallback for lazy pages
-import './static/css/main.scss'; // All of our styles
+import './static/css/main.scss';
+import NewKidsTimes from './pages/NewKidsTimes';
+import AboutWeb from './pages/aboutWeb';
 
 const { PUBLIC_URL } = process.env;
 
@@ -13,15 +15,20 @@ const NotFound = lazy(() => import('./pages/NotFound'));
 const Projects = lazy(() => import('./pages/Projects'));
 const Resume = lazy(() => import('./pages/Resume'));
 const DevelopingProjects = lazy(() => import('./pages/DevelopingProjects'));
+const Blog = lazy(() => import('./pages/blog'));
 
 const App = () => (
   <BrowserRouter basename={PUBLIC_URL}>
     <Suspense fallback={<Main />}>
       <Switch>
         <Route exact path="/" component={Index} />
+        <Route exact path="/work" component={Index} />
         <Route path="/design" component={Projects} />
+        <Route path="/work/:name" component={Blog} />
+        <Route path="/about" component={AboutWeb} />
         <Route path="/developing" component={DevelopingProjects} />
         <Route path="/resume" component={Resume} />
+        <Route path="/newkidstimes" component={NewKidsTimes} />
         <Route component={NotFound} status={404} />
       </Switch>
     </Suspense>

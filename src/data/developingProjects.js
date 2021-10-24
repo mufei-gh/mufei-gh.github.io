@@ -6,7 +6,7 @@ const data = [
     image: '/images/projects/MardiGrasParade.png',
     desc:
       'Just a simple endless collection game. You will control the person to collect'
-      + ' candies and beads thrown by floates',
+      + 'candis and beads thrown by floates',
   },
   {
     title: 'Emotion Visiualization',

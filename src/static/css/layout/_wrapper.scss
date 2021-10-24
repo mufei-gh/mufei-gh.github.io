@@ -13,15 +13,17 @@
 		margin: 0 auto;
 		max-width: 100%;
 		opacity: 1;
-		padding: (_size(section-spacing) * 1.5);
+		// padding: (_size(section-spacing) * 1.5);
 		width: 90em;
+		justify-content: center;
+		align-items: center;
 
 		body.is-menu-visible & {
 			opacity: 0.15;
 		}
 
 		@include breakpoint(xlarge) {
-			padding: _size(section-spacing);
+			// padding: _size(section-spacing);
 		}
 
 		@include breakpoint(large) {
@@ -29,7 +31,7 @@
 		}
 
 		@include breakpoint(small) {
-			padding: _size(section-spacing-small);
+			// padding: _size(section-spacing-small);
 		}
 
 		body.single & {
