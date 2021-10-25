@@ -37,7 +37,7 @@ const MardiGrasParade = () => (
         course projects, modified later with inspirations of the mardi gras parade in
         New Orleans.
       </RegularText>
-      <Title>Play and Have Fun</Title>
+      <Title className="play">Play and Have Fun</Title>
       <iframe src="https://mufei-projects.github.io/" title="Game" style={{ width: '900px', height: '630px' }} />
       {/* <img src="/images/projects/MardiGrasParade.png" className="MGPPic" alt=" " /> */}
       <Title>Coding</Title>
