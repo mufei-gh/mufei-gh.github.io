@@ -38,7 +38,7 @@ const MardiGrasParade = () => (
         New Orleans.
       </RegularText>
       <Title className="play">Play and Have Fun</Title>
-      <iframe src="https://mufei-projects.github.io/" title="Game" style={{ width: '900px', height: '630px' }} />
+      <iframe src="https://mufei-projects.github.io/" title="Game" style={{ width: '900px', height: '610px' }} />
       {/* <img src="/images/projects/MardiGrasParade.png" className="MGPPic" alt=" " /> */}
       <Title>Coding</Title>
       <RegularText className="lastLine">Feel free to check my code{' '}
