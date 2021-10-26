@@ -171,8 +171,6 @@ const NewKidsTimes = () => (
       <RegularText className="featuresContent">
         As kids and teenagers generally have limited attention spans compared to adults, the team
         gives featured designs as follows:
-        <br />
-        <img src="/images/projects/attention.png" className="attention" alt=" " />
         {/* <ul className="color-0D0D46">
           <li>
             Every two news pages have <RegTextBlue>at least one picture</RegTextBlue> related to the
@@ -186,6 +184,7 @@ const NewKidsTimes = () => (
           </li>
         </ul> */}
       </RegularText>
+      <img src="/images/projects/attention.png" className="attention" alt=" " />
       <Title className="features">Comfortable Vision</Title>
       <img src="/images/projects/vision.png" className="vision" alt=" " />
       {/* <RegularText className="featuresContent">
