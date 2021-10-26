@@ -27,19 +27,17 @@ const EmotionVisualization = () => (
       <div className="titleName">Emotion Visualization</div>
       <div className="subtitle">Deep Learning Data Analysis</div>
       <Title>Introduction</Title>
-      <RegularText>Emotion Visualization is a project to visualize user’s emotional changes
-        across one year scope by analyzing tweets posted by users. I first generated
-        this idea because I was a bit bored quarantining at home during the COVID 19
-        pandemic, and wanted to record my mood using colors to light up the dull life.
-        The initial idea was to develop a journal on which users can write some words
-        and manually choose their mood for the day. It ends up with an idea that a
-        language model can analyze posts and generate emotional labels
-        automatically. This project is developed to achieve this function.<br />
+      <RegularText>Emotion Visualization is a project to visualize users’ emotional changes across
+        one year scope by analyzing tweets posted by users. I first generated this idea because I
+        felt bored quarantining at home during the COVID 19 pandemic and wanted to record my mood
+        using colors to light up the dull life. The initial idea was to develop a journal on which
+        users can write some words and manually choose their mood for the day. It ends up with the
+        idea that a language model can analyze posts and generate emotional labels automatically.
+        This project is to achieve this function.<br />
         <br />
-        In this project, I build a model to predict user’s emotions by analyzing their
-        tweets, then generate their emotion chart for a year. A sample interactive
-        website is developed to show the emotion chart once a user-id is given,
-        aiming to display the effect of the model.
+        In this project, I build a model to predict users’ emotions by analyzing their tweets, then
+        generate their emotion chart for a year. A sample interactive website shows the emotion
+        chart of the given user id, aiming to display the effect of the model as a test.
       </RegularText>
       <img src="/images/projects/emotionV/overall.png" className="overallPic" alt=" " />
       <div className="overall">
