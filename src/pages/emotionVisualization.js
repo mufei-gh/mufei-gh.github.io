@@ -41,13 +41,19 @@ const EmotionVisualization = () => (
       </RegularText>
       <img src="/images/projects/emotionV/overall.png" className="overallPic" alt=" " />
       <div className="overall">
-        <RegularText className="text22-1">1. Train a language model (RoBERTa)<br />
-          2. Fetch tweet text by user id as test data using tweet API<br />
-          3. Predict using the trained model and give each tweet a categorical emotion<br />
-          4. label three categories with numeric values<br />
+        <RegularText className="text22-1">
+          <ol>
+            <li>Train a language model (RoBERTa)</li>
+            <li>Fetch tweet text by user id as test data using tweet API</li>
+            <li>Predict using the trained model and give each tweet a categorical emotion</li>
+            <li>label three categories with numeric values</li>
+          </ol>
         </RegularText>
-        <RegularText className="text22-2">1. Match each label to a 2D color map by using bilinear interpolation<br />
-          2. Record “emotions of the year” on a website<br />
+        <RegularText className="text22-2">
+          <ol>
+            <li>Match each label to a 2D color map by using bilinear interpolation</li>
+            <li>Record “emotions of the year” on a website</li>
+          </ol>
         </RegularText>
       </div>
       <Title>Data Preprocessing</Title>
@@ -70,9 +76,11 @@ const EmotionVisualization = () => (
         <RegularText className="roberta">RoBERTa  ---a pre-trained BERT model using 850M english tweets<br />
           <br />
           Dimensions:<br />
-          1. Input word ids (batch_size, seq_length)<br />
-          2. RoBERTa model pooler output (batch_size, 768)<br />
-          3. Dense layer output (batch_size, 4)<br />
+          <ol>
+            <li>Input word ids (batch_size, seq_length)</li>
+            <li>RoBERTa model pooler output (batch_size, 768)</li>
+            <li>Dense layer output (batch_size, 4)</li>
+          </ol>
         </RegularText>
       </div>
       <Title>Prediction</Title>
