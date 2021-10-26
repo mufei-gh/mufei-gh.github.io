@@ -42,7 +42,7 @@ const MardiGrasParade = () => (
       {/* <img src="/images/projects/MardiGrasParade.png" className="MGPPic" alt=" " /> */}
       <Title>Coding</Title>
       <RegularText className="lastLine">Feel free to check my code{' '}
-        <RegTextPurple>here.</RegTextPurple>
+        <a className="link" href="https://github.com/mufei-gh/mardiGP">here.</a>
       </RegularText>
     </div>
     <BackToPortfolio color="white" background="#481074">

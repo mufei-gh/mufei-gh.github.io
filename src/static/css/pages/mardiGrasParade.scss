@@ -56,4 +56,21 @@
     font-weight: 700;
     font-family: 'Lato', sans-serif;
   }
+  a:link {
+    text-decoration: none;
+  }
+  a:visited {
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+    color:#481074!important;
+  }
+
+  .link {
+    color: #481074;
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    border: none;
+  }
 }

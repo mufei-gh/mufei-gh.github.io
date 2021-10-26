@@ -61,12 +61,14 @@ const EmotionVisualization = () => (
       </RegularText>
       <div className="processContainer">
         <RegularText className="preprocessWords">
-          1. Misspelled data<br />
-          2. Remove URLS and mentions<br />
-          3. Remove emojis<br />
-          4. Remove empty comments<br />
-          5. Bert encoding and padding<br />
-          6. Train-validation-test split<br />
+          <ol>
+            <li>Misspelled data</li>
+            <li>Remove URLS and mentions</li>
+            <li>Remove emojis</li>
+            <li>Remove empty comments</li>
+            <li>Bert encoding and padding</li>
+            <li>Train-validation-test split</li>
+          </ol>
         </RegularText>
         <img src="/images/projects/emotionV/processing.png" className="processingPic" alt=" " />
       </div>
@@ -86,9 +88,11 @@ const EmotionVisualization = () => (
       <Title>Prediction</Title>
       <div className="predictionContainer">
         <RegularText class="predictionWord">Three categorical emotions:<br />
-          1. Joy<br />
-          2. Anger<br />
-          3. Sadness<br />
+          <ol>
+            <li>Joy</li>
+            <li>Anger</li>
+            <li>Sadness</li>
+          </ol>
           <br />
           Match the result(labels and values) to the<br />
           palette on the left.<br />
