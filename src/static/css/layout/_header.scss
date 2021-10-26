@@ -30,7 +30,7 @@
 		line-height: 3.5em;
 		// position: fixed;
 		top: 0;
-		width: 60%;
+		width: 62.5%;
 		max-width: 960px;
 		left: auto;
 		z-index: _misc(z-index-base);
@@ -100,7 +100,18 @@
 						border-bottom: 0;
 						color: #003472 !important;
 					}
-
+					a:link {
+						text-decoration: none;
+					}
+					a:visited {
+						text-decoration: none;
+					}
+					a:hover {
+						font-weight: 700;
+					}
+					a:active{
+						font-weight: 700;
+					}
 
 					// a {
 					// 	border-bottom: 0;
