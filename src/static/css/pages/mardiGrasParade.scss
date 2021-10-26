@@ -56,17 +56,16 @@
     font-weight: 700;
     font-family: 'Lato', sans-serif;
   }
-  a:link {
+  a.link:link {
     text-decoration: none;
   }
-  a:visited {
+  a.link:visited {
     text-decoration: none;
   }
-  a:hover {
+  a.link:hover {
     text-decoration: underline;
     color:#481074!important;
   }
-
   .link {
     color: #481074;
     font-family: 'Lato', sans-serif;
