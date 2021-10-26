@@ -30,7 +30,7 @@ const AboutWeb = () => (
             src={`${PUBLIC_URL}/images/myPic.png`}
             className="me"
             alt=""
-            style={{ width: '352px' }}
+            style={{ width: '308px' }}
           />
         </div>
         <RegularText>
