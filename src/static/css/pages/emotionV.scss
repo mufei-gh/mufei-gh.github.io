@@ -142,12 +142,15 @@
     margin-bottom: 0;
     margin-top: 1em;
   }
-  .lastLine{
+  .note{
     margin-bottom: 4.55em;
   }
-  .note{
-    list-style-type: disc;
-    font-size: 18px;
+  .color-purple{
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    color: #481074;
+    display: contents;
+    line-height: 1.5em;
   }
   .back-to-portfolio{
     font-size: 36px;

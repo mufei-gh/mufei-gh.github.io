@@ -1,9 +1,15 @@
 import { Link } from 'react-router-dom';
 import React from 'react';
+import PropTypes from 'prop-types';
 import RegularText from '../components/Template/RegularText';
 import Title from '../components/Template/Title';
 import BackToPortfolio from '../components/Projects/BackToPortfolio';
 
+const RegTextPurple = (props) => <div className="color-purple">{props.children}</div>;
+
+RegTextPurple.propTypes = {
+  children: PropTypes.string.isRequired,
+};
 const EmotionVisualization = () => (
   <div className="full-width emotionVisualization flex-center">
     <div className="full-width no-margin arrow-container">
@@ -103,7 +109,14 @@ const EmotionVisualization = () => (
       <Title>Visualization</Title>
       <img src="/images/projects/emotionV/chart.png" className="chartPic" alt=" " />
       <RegularText className="lastLine">
-        An example of a user’s mood swings over a year.
+        An example of a user’s mood swings over a year.<br />
+        <br />
+      </RegularText>
+      <RegularText className="note">
+        <RegTextPurple>Note:<br /></RegTextPurple>
+        Due to the ethical concerns, the input userId shown in the picture is not the
+        actual username of the twitter account used to generate this emotion chart but a
+        representation of all possible account names.
       </RegularText>
     </div>
     <BackToPortfolio color="white" background="#481074">
