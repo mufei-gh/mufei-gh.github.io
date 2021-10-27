@@ -102,7 +102,8 @@ const EmotionVisualization = () => (
       </div>
       <Title>Visualization</Title>
       <img src="/images/projects/emotionV/chart.png" className="chartPic" alt=" " />
-      <RegularText className="lastLine">An example of an user’s mood swing over an year
+      <RegularText className="lastLine">
+        An example of a user’s mood swings over a year.
       </RegularText>
     </div>
     <BackToPortfolio color="white" background="#481074">
