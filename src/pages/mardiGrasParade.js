@@ -5,6 +5,12 @@ import RegularText from '../components/Template/RegularText';
 import Title from '../components/Template/Title';
 import BackToPortfolio from '../components/Projects/BackToPortfolio';
 
+// const handleEvent = (e) => {
+//   console.info('info', e);
+//   // eslint-disable-next-line no-alert
+//   alert(123);
+// };
+
 const RegTextPurple = (props) => <div className="color-purple">{props.children}</div>;
 
 RegTextPurple.propTypes = {
@@ -33,9 +39,9 @@ const MardiGrasParade = () => (
       <div className="titleName">Mardi Gras Parade</div>
       <div className="subtitle">Game Design and Development</div>
       <Title>Introduction</Title>
-      <RegularText>Mardi gras parade is a simple collection game. Initially, it was one of my
-        course projects, modified later with inspirations of the mardi gras parade in
-        New Orleans.
+      <RegularText>
+        Mardi gras parade is a simple collection game. Initially, it was one of my course projects,
+        modified later with inspirations of the mardi gras parade in New Orleans.
       </RegularText>
       <Title className="play">Play and Have Fun</Title>
       <iframe src="https://mufei-projects.github.io/" title="Game" style={{ width: '900px', height: '610px' }} />
@@ -50,4 +56,5 @@ const MardiGrasParade = () => (
     </BackToPortfolio>
   </div>
 );
+
 export default MardiGrasParade;

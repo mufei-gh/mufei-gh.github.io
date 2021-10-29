@@ -18,6 +18,9 @@ const DevelopingProjects = lazy(() => import('./pages/DevelopingProjects'));
 const Blog = lazy(() => import('./pages/blog'));
 
 const App = () => (
+  // const location = useLocation();
+  // if (location.pathname === '/') history.replace('/work');
+
   <BrowserRouter basename={PUBLIC_URL}>
     <Suspense fallback={<Main />}>
       <Switch>
@@ -34,5 +37,4 @@ const App = () => (
     </Suspense>
   </BrowserRouter>
 );
-
 export default App;
