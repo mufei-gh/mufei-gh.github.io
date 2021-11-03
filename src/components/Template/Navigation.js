@@ -24,7 +24,12 @@ const Navigation = () => {
           {routes
             .filter((l) => !l.index)
             .map((l) => (
-              <li key={l.label} style={{ fontWeight: location.pathname === l.path ? 700 : 500 }}>
+              <li
+                key={l.label}
+                style={
+                  { fontWeight: location.pathname.slice(0, l.path.length) === l.path ? 700 : 500 }
+                      }
+              >
                 <Link to={l.path}>{l.label}</Link>
               </li>
             ))}
