@@ -125,17 +125,17 @@
     opacity:0.8;
     line-height: 1.5em;
   }
-  .time{
-    margin-top: 0.375em;
-    margin-bottom:-0.6em;
+  .grey{
+    margin-top:2em;
+    margin-bottom:2em;
   }
-  .mask{
-    margin-top: 0.375em;
-    margin-bottom:-0.6em;
+  .transition{
+    margin-top:1.82em;
+    margin-bottom: 1.82em;
   }
   .amazon{
-    margin-top: 0.375em;
-    margin-bottom:-0.48em;
+    margin-top: 2.5em;
+    margin-bottom:1.75em;
   }
   .transition{
     font-family: 'Lato', sans-serif;
@@ -149,12 +149,16 @@
   .question{
     font-family: 'Lato', sans-serif;
     font-weight: 700;
-    margin-top:1.4285em;
+    margin-top:1.786em;
     font-size: 28px;
     color: black;
     opacity:0.8;
     line-height: 1.5em;
     margin-bottom: 0;
+  }
+  .shopOnline{
+    margin-top: 4.375em;
+    margin-bottom: 1.25em;
   }
   .survey{
     margin-bottom: 3.125em;
@@ -164,7 +168,7 @@
     position: relative;
     flex-direction:row;
     gap:1.6em;
-    margin-top: 0.375em;
+    margin-top: 0;
     .percentage{
       display:flex;
       flex-direction: column;
@@ -185,6 +189,10 @@
       opacity:0.8;
       line-height: 1.5em;
     }
+  }
+  .newFeatures{
+    margin-top: 3.125em;
+    margin-bottom: 3.125em;
   }
   .reasons{
     font-family: 'Lato', sans-serif;
@@ -207,8 +215,8 @@
     margin-bottom: 0;
   }
   .researchPhoto{
-    margin-top: 1.75em;
-    margin-bottom: 3.5em;
+    margin-top: 2.25em;
+    margin-bottom: 5.186em;
   }
   .workflowPhoto{
     margin-top: 3.125em;
@@ -217,9 +225,10 @@
   .testingPic{
     display:flex;
     flex-direction: row;
+    margin-bottom:2.5em!important;
   }
   .full-width{
-    margin-top: 3.125em;
+    margin-top: 4.06em;
     margin-bottom: 0;
   }
   .name{
@@ -239,13 +248,18 @@
     margin-bottom: 6.25em;
   }
   .designPic{
-    margin-top: 0.875em;
-    margin-bottom: 0;
+    margin-top: 1.75em;
+    margin-bottom: 3.125em;
   }
   .cartPic{
-    width:47.46%;
+    width:47.5%;
     display: block;
-    margin: 0.875em auto 0;
+    margin: 1.75em auto 3.125em;
+  }
+  .tourPic{
+    width:47.5%;
+    display:block;
+    margin: 1.75em auto 3.125em;
   }
   .testing{
     font-family: 'Lato', sans-serif;
@@ -277,7 +291,7 @@
     opacity:0.8;
     line-height: 1.5em;
     margin-bottom: 0;
-    margin-top: 1.4286em;
+    margin-top: 0;
   }
   .featureContent{
     font-family: 'Lato', sans-serif;

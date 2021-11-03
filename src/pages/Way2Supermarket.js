@@ -52,7 +52,8 @@ const Way2Supermarket = () => (
       <div className="goals">Solution</div>
       <RegularText className="summary">
         Way2 Supermarket is a website developed to provide people a way to{' '}
-        <RegTextGreen>shop groceries online from a local store,</RegTextGreen> aiming to minimize
+        <RegTextGreen>shop groceries online from a local store</RegTextGreen> (assuming there is
+        also a grocery store in your neighborhood named Way2 Supermarket) aiming to minimize
         the risk of exposure to viruses and save shopping time.
       </RegularText>
       <div className="goals">Contribution</div>
@@ -75,6 +76,7 @@ const Way2Supermarket = () => (
           'prototypeSlider7.png',
           'prototypeSlider8.png',
           'prototypeSlider9.png',
+          'prototypeSlider9.5.png',
           'prototypeSlider10.png',
           'prototypeSlider11.png',
           'prototypeSlider12.png',
@@ -103,6 +105,8 @@ const Way2Supermarket = () => (
           'prototypeSlider35.png',
           'prototypeSlider36.png',
           'prototypeSlider37.png',
+          'prototypeSlider38.png',
+          'prototypeSlider39.png',
         ].map((d) => `${imageBaseUrl}way2Prototype/${d}`)}
       />
       <Title className="researchTitle">Research & Discovery</Title>
@@ -126,53 +130,25 @@ const Way2Supermarket = () => (
           of all shoppers still <RegTextGreen>prefer to shop in-store.</RegTextGreen>
         </RegularText>
       </div>
-      <RegularText className="transition">
-        On the one hand, the percent of people doing online grocery shopping has increased
-        significantly. On the other hand, shoppers remain loyal to local grocery stores. To
-        understand users better,{' '}
-        <RegTextGreen> we spread surveys and concluded highlights below.</RegTextGreen>
-      </RegularText>
+    </div>
+    <div className="full-width flex-center grey" style={{ background: '#e5e5e5' }}>
+      <div className="blog-container">
+        <RegularText className="transition">
+          On the one hand, the percent of people doing online grocery shopping has increased
+          significantly. On the other hand, shoppers remain loyal to local grocery stores. To
+          understand users better,{' '}
+          <RegTextGreen> we spread surveys and concluded highlights below.</RegTextGreen>
+        </RegularText>
+      </div>
+    </div>
+    <div className="blog-container">
       <div className="survey">
         <Title className="question">What makes these people shop groceries online? </Title>
-        <div className="dataContainer">
-          <div className="percentage">55%</div>
-          <RegularText className="data">
-            of respondents have shopped groceries online, and the most used platform is amazon
-            fresh.
-            <br />
-          </RegularText>
-        </div>
-        <img className="time" src="/images/projects/time.png" alt=" " />
-        <img className="mask" src="/images/projects/mask.png" alt=" " />
-        {/* <div className="dataContainer">
-          <div className="percentage">45%</div>
-          <RegularText className="data">
-            of online shoppers said they have some{' '}
-            <RegTextGreen>concerns about the COVID19 virus.</RegTextGreen>
-          </RegularText>
-        </div> */}
+        <img className="shopOnline" src="/images/projects/shopOnlinePic.png" alt=" " />
         <Title className="question">
           And why are they loyal in shopping for groceries locally?
         </Title>
         <img className="amazon" src="/images/projects/amazon.png" alt=" " />
-        {/* <div className="dataLine">
-          <div className="percentage">80%</div>
-          <RegularText className="data">
-            of Amazon Fresh shoppers are not loyal to the platform because
-          </RegularText>
-        </div>
-        <li className="reasons">
-          They have to purchase amazon prime to use amazon fresh, and it is{' '}
-          <RegTextGreen>pricy</RegTextGreen> if they do not use the platform to order groceries
-          often
-        </li>
-        <li className="reasons">
-          The platform does not have any physical store, so they{' '}
-          <RegTextGreen>
-            cannot check if the food is fresh and healthy before they get it.
-          </RegTextGreen>
-          ”
-        </li> */}
         <div className="dataContainer">
           <div className="percentage">95%</div>
           <RegularText className="data">
@@ -180,6 +156,45 @@ const Way2Supermarket = () => (
             <RegTextGreen>online grocery shopping from a grocery store locally.</RegTextGreen>
           </RegularText>
         </div>
+      </div>
+    </div>
+    <div className="full-width flex-center no-margin" style={{ background: '#e5e5e5' }}>
+      <div className="blog-container">
+        <RegularText className="transition">
+          Therefore, Way2 Supermarket is a platform that delivers groceries from a local store,
+          so customers can save time and minimize the COVID-19 concerns by shopping groceries
+          online without worries about food quality. Besides, Way2 Supermarket is built with{' '}
+          <RegTextGreen>features below to satisfy customers’ needs better:</RegTextGreen>
+        </RegularText>
+      </div>
+    </div>
+    <div className="blog-container">
+      <div className="newFeatures">
+        <Title className="media">Time-Saving Workflow</Title>
+        <RegularText className="mediaContent">
+          <RegTextGreen>
+            Build hierarchy in the directory with categories and subcategories.{' '}
+          </RegTextGreen>
+          Subcategories only show up when users click their parent category. Users can navigate
+          quickly by not viewing categories at the same time and find one from many. Moreover,{' '}
+          <RegTextGreen>build search function.</RegTextGreen> Users can find the item they want
+          easily by searching the product using the search bar on the top center of the website.
+        </RegularText>
+        <Title className="media">No Contact Delivery</Title>
+        <RegularText className="mediaContent">
+          Before placing the order, users can{' '}
+          <RegTextGreen>choose no contact delivery,</RegTextGreen>
+          then the driver will not meet them in person but only leave the order at the door or a
+          specific place that users require in the special notes.
+        </RegularText>
+        <Title className="media">Take a Virtual Tour</Title>
+        <RegularText className="mediaContent">
+          Some users are worried about the food quality when shopping for groceries online because
+          they can’t see the food before ordering. This function{' '}
+          <RegTextGreen>provides users a view of what exactly is in this grocery store by an
+            introductory video.
+          </RegTextGreen>
+        </RegularText>
       </div>
     </div>
     <div className="full-width flex-center no-margin pos-rel">
@@ -236,7 +251,8 @@ const Way2Supermarket = () => (
         so the shopping cart icon still lights up after the cart appears, making the shopping cart
         icon and the content layer as a whole.
       </RegularText>
-      <Title className="media">Details</Title>
+      <img src="/images/projects/testingPic.png" alt=" " className="testingPic" />
+      <Title className="media">Quantity Adjustment</Title>
       <RegularText className="mediaContent">
         The initial version uses triangle buttons adjusting quantities in the shopping cart, which
         are relatively small, so it is not easy for every user to click them. The team decided to{' '}
@@ -249,20 +265,8 @@ const Way2Supermarket = () => (
         </RegTextGreen>so users know that they can delete it directly, rather than taking another
         few seconds to reach the remove button at the bottom.
       </RegularText>
-      <RegularText className="testingPara">
-        Another change is the closing button which closes the shopping cart window. There was a
-        problem faced in the design process of the initial version: The closing button on the left
-        side looks very close to the title shopping cart, which creates some noises in vision.
-        However, if moved to the upper right corner of the poping window, the design would not be
-        consistent with the usual cognitive process since the closing button usually is placed at
-        the upper left corner. To solve this problem, the team decided to{' '}
-        <RegTextGreen>move the closing icon down to the row of the title Shopping Cart,{' '}
-        </RegTextGreen>
-        improving the usability further.
-      </RegularText>
-      <img src="/images/projects/testingPic.png" alt=" " className="testingPic" />
     </div>
-    <img src="/images/projects/flowPicSection.png" alt=" " className="full-width" />
+    <img src="/images/projects/flowPic.png" alt=" " className="full-width" />
     <div className="blog-container">
       <div className="designSec">
         <Title className="name">Design Highlights</Title>
@@ -274,16 +278,22 @@ const Way2Supermarket = () => (
         <img src="/images/projects/directory.png" alt=" " className="designPic" />
         <Title className="feature">Search</Title>
         <RegularText className="featureContent">
-          Found item appears as the first item under its category. For example, Bell Pepper shows up
-          as the first item under the subcategory Vegetables. The search function provides users a
-          quick way to find things they need.
+          Found item appears. The search function provides users a quick way to find things they
+          need.
         </RegularText>
         <img src="/images/projects/search.png" alt=" " className="designPic" />
+        <Title className="feature">Virtual Tour</Title>
+        <RegularText className="featureContent">
+          Users can see what is exactly in the local store by watching this introductory video,
+          so they will not be worried about the food quality when placing an order online.
+        </RegularText>
+        <img src="/images/projects/tour.png" alt=" " className="tourPic" />
         <Title className="feature">Delivery Information</Title>
         <RegularText className="featureContent">
           Fill out the delivery information to help users get notifications about their orders.
-          Icons light up( become green), telling users each required information filled. Users can
-          only proceed to check out by filling in all required information.
+          Icons light up (become green), telling users each required information filled. Users
+          can proceed to check out if all icons light up. Moreover, Users can choose no contact
+          delivery under Special Instructions, aiming to relieve COVID19 concerns.
         </RegularText>
         <img src="/images/projects/deliveryInfo.png" alt=" " className="designPic" />
         <Title className="feature">Cart Review</Title>
