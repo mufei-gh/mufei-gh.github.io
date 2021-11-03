@@ -292,7 +292,7 @@ const Way2Supermarket = () => (
         <RegularText className="featureContent">
           Fill out the delivery information to help users get notifications about their orders.
           Icons light up (become green), telling users each required information filled. Users
-          can proceed to check out if all icons light up. Moreover, Users can choose no contact
+          can proceed to check out if all icons light up. Moreover, users can choose no contact
           delivery under Special Instructions, aiming to relieve COVID19 concerns.
         </RegularText>
         <img src="/images/projects/deliveryInfo.png" alt=" " className="designPic" />
