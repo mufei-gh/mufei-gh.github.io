@@ -15,14 +15,14 @@ const AboutWeb = () => (
             I’m Mufei, an engineer who hopes to solve problems with beautiful.
             <br />
             <br />
-            I was majoring in computer science at the University of Michigan, and fortunately found
-            my passion for HCI and Machine Learning before graduating in May 2021.
+            I majored in computer science in college and fortunately found my passion for HCI and
+            Machine Learning before graduating in May 2021.
             <br />
             <br />
-            I love drawing and have spent a lot of time on fine art for years. I do sketches,
-            watercolors, and paintings. I was a member of the ArtsEngine program in college and kept
+            I love drawing and have spent time on fine art for years. I do sketches, watercolors,
+            and paintings. Back in college, I was a member of the ArtsEngine program and kept
             updating my drawings on Instagram. However, I turned the private mode on while learning
-            digital drawing since I became shy of my previous work.
+            digital drawing since I became shy about my previous work.
             <br />
             <br />
           </RegularText>
@@ -34,9 +34,11 @@ const AboutWeb = () => (
           />
         </div>
         <RegularText>
-          I’m interested in cognitive science and social science, which is one of the reasons I’ve
-          been passionate about creating solutions to improve user experience. For me, HCI is an
-          amazing combination of art and logic!
+          Upon graduation, I became a database developer, then worked as a UX Engineer. I’m
+          interested in cognitive science and social science, which is one of the reasons I’ve been
+          passionate about creating solutions to improve user experience. For me, HCI is a fantastic
+          combination of art and logic! This website displays some of my school projects.
+          To learn more about my professional work, feel free to reach out to mufei@umich.edu.
           <br />
           <br />
           Fun Fact: I hand drew this profile picture and developed this website!
