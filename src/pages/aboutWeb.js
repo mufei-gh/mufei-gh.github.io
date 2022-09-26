@@ -1,9 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import RegularText from '../components/Template/RegularText';
 import Title from '../components/Template/Title';
 import Main from '../layouts/Main';
 
 const { PUBLIC_URL } = process.env; // set automatically from package.json:homepage
+
+const RegTextGreen = (props) => <div className="color-33a83f dis-contents">{props.children}</div>;
+
+RegTextGreen.propTypes = {
+  children: PropTypes.string.isRequired,
+};
 
 const AboutWeb = () => (
   <Main fullpage>
@@ -33,12 +40,13 @@ const AboutWeb = () => (
             style={{ width: '308px' }}
           />
         </div>
-        <RegularText>
+        <RegularText className="grad">
           Upon graduation, I became a database developer, then worked as a UX Engineer. I’m
           interested in cognitive science and social science, which is one of the reasons I’ve been
           passionate about creating solutions to improve user experience. For me, HCI is a fantastic
           combination of art and logic! This website displays some of my school projects.
-          To learn more about my professional work, feel free to reach out to mufei@umich.edu.
+          To learn more about my professional work, feel free to reach out to{' '}
+          <RegTextGreen> mufei@umich.edu.</RegTextGreen>
           <br />
           <br />
           Fun Fact: I hand drew this profile picture and developed this website!
