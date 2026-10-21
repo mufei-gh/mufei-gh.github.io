@@ -441,6 +441,8 @@ figure.vid video{display:block;width:100%;height:auto;border:1px solid var(--rul
   padding:0;border:0;border-radius:clamp(6px,1.1vw,14px);background:#0e1420;color:#fff;cursor:pointer;
   font:600 clamp(.66rem,1.45vw,1.12rem)/1 "Inter","Public Sans",sans-serif;letter-spacing:-.005em;
   box-shadow:0 8px 22px rgba(14,20,32,.28);transition:background .2s,box-shadow .2s}
+/* display:flex outranks the browser default for [hidden], so say it here */
+.vplay[hidden]{display:none}
 .vplay:hover{background:#171fac;box-shadow:0 10px 28px rgba(23,31,172,.35)}
 .vplay b,.vplay span,.vplay:hover b,.vplay:hover span{color:#fff}
 .vplay:focus-visible{outline:3px solid #7a79fa;outline-offset:3px}
