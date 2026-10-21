@@ -1,0 +1,1399 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Why nobody has built the obvious product">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:title" content="Why nobody has built the obvious product · Mufei Chen">
+<meta property="og:description" content="Computer science, healthcare, product research and design.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mufei-gh.github.io/ai-automation">
+<title>Why nobody has built the obvious product · Mufei Chen</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&family=League+Spartan:wght@400;600;700&display=swap">
+
+<style>
+:root{
+  --ink:#0d1319; --ink-body:#2a3541; --ink-soft:#495664; --ink-faint:#5e6d7c;
+  --paper:#f1f4f6; --panel:#fff; --plate:#f8fafb;
+  --rule:#dbe2e8; --rain:#8fa6ba;
+  --accent:#17506e; --accent-2:#2b7e8c; --accent-dim:#d3e1ea;
+  --shadow:0 1px 2px rgba(13,19,25,.04),0 8px 28px rgba(13,19,25,.07);
+  --shadow-lift:0 2px 6px rgba(13,19,25,.07),0 22px 48px rgba(13,19,25,.13);
+  --rain-op:.5;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ink:#e8eef4; --ink-body:#cfd8e1; --ink-soft:#9fb0c0; --ink-faint:#6d7d8d;
+  --paper:#070b0f; --panel:#101821; --plate:#0b1118;
+  --rule:#22303d; --rain:#2b3d4f;
+  --accent:#86c3dd; --accent-2:#63b9c4; --accent-dim:#182733;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px rgba(0,0,0,.45);
+  --shadow-lift:0 2px 8px rgba(0,0,0,.5),0 26px 56px rgba(0,0,0,.6);
+  --rain-op:.8;
+}}
+:root[data-theme="dark"]{
+  --ink:#e8eef4; --ink-body:#cfd8e1; --ink-soft:#9fb0c0; --ink-faint:#6d7d8d;
+  --paper:#070b0f; --panel:#101821; --plate:#0b1118;
+  --rule:#22303d; --rain:#2b3d4f;
+  --accent:#86c3dd; --accent-2:#63b9c4; --accent-dim:#182733;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px rgba(0,0,0,.45);
+  --shadow-lift:0 2px 8px rgba(0,0,0,.5),0 26px 56px rgba(0,0,0,.6);
+  --rain-op:.8;
+}
+
+*{box-sizing:border-box}
+h1,h2.pt,.work-t,.thesis,.brand,.next a{font-optical-sizing:auto}
+/* headings keep the full ink; running text sits one step softer */
+h1,h2,h3,h4,.thesis,.brand,.work-t,.sc h3,b,strong{color:var(--ink)}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink-body);
+  font-family:"Public Sans","Helvetica Neue",Arial,sans-serif;font-size:17px;line-height:1.68;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:var(--accent);text-decoration:none}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:3px}
+
+#rain{position:fixed;inset:0;width:100%;height:100%;z-index:0;opacity:var(--rain-op);pointer-events:none;
+  transition:opacity .5s ease}
+#rain.off{opacity:0}
+
+/* ---------- nav ---------- */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;
+  background:color-mix(in srgb,var(--paper) 86%,transparent);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--rule)}
+.nav-in{max-width:1180px;margin:0 auto;padding:0 clamp(16px,4vw,40px);
+  height:60px;display:flex;align-items:center;gap:clamp(14px,3vw,30px)}
+.brand{font-family:"Newsreader",Georgia,"Times New Roman",serif;font-size:1.35rem;letter-spacing:-.01em;
+  color:var(--ink);margin-right:auto;
+  transition:opacity .3s ease,transform .3s ease,visibility 0s linear 0s}
+/* on the home page the masthead already says the name; the nav takes it over once the masthead leaves */
+nav.hush .brand{opacity:0;transform:translateY(5px);visibility:hidden;pointer-events:none;
+  transition:opacity .3s ease,transform .3s ease,visibility 0s linear .3s}
+@media (prefers-reduced-motion: reduce){.brand,nav.hush .brand{transition:none;transform:none}}
+.brand em{font-style:italic;color:var(--accent)}
+nav a.nv{font-size:.83rem;letter-spacing:.09em;text-transform:uppercase;font-weight:500;
+  color:var(--ink-soft);padding:6px 2px;border-bottom:1.5px solid transparent}
+nav a.nv:hover{color:var(--ink)}
+nav a.nv.on{color:var(--ink);border-bottom-color:var(--accent)}
+
+main{position:relative;z-index:1;padding-top:60px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 clamp(16px,4vw,40px)}
+.narrow{max-width:720px}
+
+/* ---------- atmosphere ---------- */
+#grain{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.038;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:200px 200px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #grain{opacity:.055}}
+:root[data-theme="dark"] #grain{opacity:.055}
+
+@keyframes rise{to{opacity:1;transform:none}}
+@keyframes surface{from{opacity:0;transform:translateY(30px) scale(1.012);filter:blur(16px)}
+  60%{opacity:1}to{opacity:1;transform:none;filter:blur(0)}}
+@keyframes drawline{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.sf{opacity:0;animation:surface 1.35s cubic-bezier(.17,.86,.28,1) forwards;animation-delay:var(--d,0s)}
+.dl{transform-origin:left center;animation:drawline 1.05s cubic-bezier(.2,.78,.26,1) backwards;animation-delay:var(--d,0s)}
+@media (prefers-reduced-motion:reduce){
+  .sf{opacity:1;filter:none;transform:none;animation:none}
+  .dl{animation:none;transform:none}}
+.rv{opacity:0;transform:translateY(18px);
+  animation:rise .82s cubic-bezier(.2,.7,.3,1) forwards;animation-delay:var(--d,0s)}
+/* .rv is defined after the reduced-motion block above, so it needs its own */
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;animation:none}}
+
+/* ---------- home hero ----------
+   A masthead: name and mark on one line, a rule under both,
+   then the standfirst and the thesis side by side. */
+.hero{position:relative;min-height:calc(100svh - 60px);
+  display:flex;flex-direction:column;justify-content:center;
+  padding:clamp(44px,7vh,86px) 0 clamp(26px,4vh,46px)}
+.masthead{display:flex;align-items:flex-end;justify-content:space-between;
+  gap:clamp(16px,4vw,60px);flex-wrap:wrap}
+h1{font-family:"Newsreader",Georgia,"Times New Roman",serif;font-weight:400;
+  font-size:clamp(3rem,8.4vw,7rem);line-height:.9;letter-spacing:-.03em;
+  margin:0;text-wrap:balance}
+.hrule{height:1px;background:var(--rule);width:100%;
+  margin:clamp(18px,2.6vw,30px) 0 clamp(26px,4vw,46px)}
+
+.herorow{display:grid;grid-template-columns:1fr;gap:clamp(22px,3.5vw,54px);align-items:baseline}
+@media(min-width:880px){.herorow{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)}}
+.stand{font-size:clamp(1.02rem,1.9vw,1.24rem);color:var(--ink-soft);
+  max-width:34ch;margin:0;text-wrap:pretty}
+.stand-lab{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.65rem;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);
+  line-height:1.8;margin:0 0 1.15em}
+.stand p{margin:0}
+.thesis{position:relative;max-width:32ch;font-family:"Newsreader",Georgia,"Times New Roman",serif;
+  font-size:clamp(1.4rem,3vw,2.15rem);line-height:1.3;margin:0;padding-left:1.1em;text-wrap:pretty}
+.thesis::before{content:"";position:absolute;left:0;top:.28em;bottom:.28em;width:2px;background:var(--accent)}
+
+.cuewrap{margin-top:auto;padding-top:clamp(34px,6vh,66px);display:flex}
+.cue{margin-left:auto;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.63rem;
+  letter-spacing:.19em;text-transform:uppercase;color:var(--ink-faint);display:flex;align-items:center;gap:.7em}
+.cue i{font-style:normal;animation:bob 2.6s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0);opacity:.55}50%{transform:translateY(5px);opacity:1}}
+
+/* ---------- 沐霏 ----------
+   Drawn from LXGW WenKai outlines, not set as type: a mark, not a word.
+   It sits on the masthead rule beside the name. */
+.cn{display:flex;gap:.08em;pointer-events:none;user-select:none;
+  font-size:clamp(1.8rem,2.7vw,2.2rem);line-height:1;margin-bottom:.14em}
+.gl{position:relative;display:block;width:1em;height:1em}
+.gl svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.gl svg path{fill:var(--ink-faint)}
+@keyframes wetfall{from{opacity:0;transform:translateY(-.22em)}to{opacity:1;transform:none}}
+.cn.first .g-wet{opacity:0;
+  animation:wetfall 1.1s cubic-bezier(.22,.78,.3,1) forwards;
+  animation-delay:calc(1.15s + var(--i,0)*.22s)}
+@media (prefers-reduced-motion:reduce){.cn.first .g-wet{opacity:1;animation:none;transform:none}}
+
+/* ---------- intro: no hero. two lines, then straight into the work ---------- */
+.intro{padding:clamp(52px,11vh,120px) 0 clamp(44px,8vh,92px);max-width:46ch}
+.intro-lab{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.65rem;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);
+  line-height:1.8;margin:0 0 1.6em}
+.intro-line{font-size:clamp(1.15rem,2.3vw,1.6rem);line-height:1.5;
+  color:var(--ink);margin:0;text-wrap:pretty}
+
+/* ---------- coda: the thesis closes the page instead of opening it ---------- */
+.coda{padding:clamp(40px,7vw,90px) 0 clamp(70px,11vw,130px);
+  border-top:1px solid var(--rule)}
+.coda-t{font-family:"Newsreader",Georgia,"Times New Roman",serif;
+  font-size:clamp(1.5rem,3.4vw,2.4rem);line-height:1.32;
+  max-width:26ch;margin:0;color:var(--ink);text-wrap:pretty}
+
+/* ---------- gauge label ---------- */
+.gauge{display:flex;align-items:center;gap:.8em;font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint);margin:0 0 1em}
+.gauge::after{content:"";flex:1;height:1px;background:var(--rule)}
+.gauge span.ct{flex:none;color:var(--ink-faint)}
+
+/* ---------- work: one frame per project ---------- */
+.works{display:flex;flex-direction:column;gap:clamp(20px,3vw,34px);
+  padding-bottom:clamp(60px,10vw,120px)}
+.work{display:grid;grid-template-columns:1fr;background:var(--panel);
+  border:1px solid var(--rule);box-shadow:var(--shadow);color:inherit;overflow:hidden;
+  transition:transform .4s cubic-bezier(.2,.7,.3,1),box-shadow .4s,border-color .4s}
+@media(min-width:860px){.work{grid-template-columns:minmax(0,45%) minmax(0,1fr)}}
+.work:hover{box-shadow:var(--shadow-lift);border-color:color-mix(in srgb,var(--accent) 38%,var(--rule))}
+@media(min-width:860px){.work:hover{transform:translateY(-4px)}}
+.work-shot{position:relative;overflow:hidden;background:var(--plate);
+  aspect-ratio:3/2;border-bottom:1px solid var(--rule)}
+@media(min-width:860px){.work-shot{aspect-ratio:auto;height:100%;min-height:360px;
+  border-bottom:0;border-right:1px solid var(--rule)}}
+.work-shot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.work-shot img,.work-shot svg.cover{transition:transform .85s cubic-bezier(.2,.7,.3,1)}
+.work:hover .work-shot img,.work:hover .work-shot svg.cover{transform:scale(1.04)}
+.work-shot.ph{display:flex;align-items:center;justify-content:center;
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.7rem;color:var(--ink-faint);letter-spacing:.1em}
+.work-b{padding:clamp(24px,3.2vw,42px);display:flex;flex-direction:column;justify-content:center}
+.work-n{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.7rem;letter-spacing:.14em;
+  color:var(--ink-faint);font-variant-numeric:tabular-nums;margin:0 0 1.15em}
+.work-t{font-family:"Newsreader",Georgia,"Times New Roman",serif;font-weight:400;
+  font-size:clamp(1.8rem,3.6vw,2.7rem);line-height:1.05;letter-spacing:-.015em;
+  margin:0 0 .34em;text-wrap:balance;transition:color .35s}
+.work:hover .work-t{color:var(--accent)}
+.work-f{color:var(--ink-soft);font-size:1rem;line-height:1.58;margin:0 0 1.5em;max-width:46ch;text-wrap:pretty}
+.work-m{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.66rem;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink-faint)}
+
+/* ---------- project page ---------- */
+.ph-head{padding:clamp(44px,8vw,96px) 0 clamp(26px,4vw,44px);border-bottom:1px solid var(--rule)}
+/* about carries no back-link and no finding line, so the title has to be centred in the band by hand:
+   the gauge rule sits 11px above it by default and the bottom border 66px below */
+.ph-head.abt{padding-top:clamp(66px,10vw,122px);padding-bottom:clamp(14px,2.4vw,20px)}
+.ph-head.abt .gauge{margin-bottom:clamp(22px,4vw,42px)}
+.back{font-family:"IBM Plex Mono",monospace;font-size:.74rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-faint);display:inline-block;margin-bottom:2.2em}
+.back:hover{color:var(--accent)}
+h2.pt{font-family:"Newsreader",Georgia,"Times New Roman",serif;font-weight:400;
+  font-size:clamp(2.5rem,7vw,4.6rem);line-height:.98;letter-spacing:-.022em;margin:0 0 .3em;text-wrap:balance}
+.finding{font-size:clamp(1.12rem,2.5vw,1.45rem);line-height:1.45;color:var(--accent);
+  font-weight:500;max-width:44ch;margin:0;text-wrap:pretty}
+
+.body{display:grid;grid-template-columns:1fr;gap:0;padding:clamp(34px,6vw,64px) 0 clamp(70px,11vw,130px)}
+@media(min-width:960px){.body{grid-template-columns:200px minmax(0,1fr);gap:clamp(30px,5vw,70px)}}
+.rail{font-family:"IBM Plex Mono",monospace;font-size:.76rem;line-height:1.95;color:var(--ink-faint)}
+@media(min-width:960px){.rail{position:sticky;top:92px;align-self:start}}
+.rail b{display:block;color:var(--ink);font-weight:500;letter-spacing:.04em;margin-top:1.5em}
+.rail b:first-child{margin-top:0}
+.rail .tiny{font-size:.72rem}
+.rail a{border-bottom:1px solid var(--accent-dim)}
+
+.flow p{margin:0 0 1.2em;max-width:68ch}
+.flow p b{font-weight:600}
+.flow h4{font-family:"Public Sans",sans-serif;font-weight:600;font-size:.76rem;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--ink-faint);margin:2.6em 0 .9em}
+.note{background:var(--plate);border-left:2px solid var(--accent-2);padding:1.1em 1.3em;
+  margin:1.8em 0;font-size:.95rem;line-height:1.62;color:var(--ink-soft);max-width:68ch}
+.note b{color:var(--ink)}
+
+figure{margin:2.4em 0;}
+@media(min-width:1100px){figure{margin-left:-54px;margin-right:-54px}}
+figure img{border:1px solid var(--rule);box-shadow:var(--shadow);background:var(--panel)}
+figcaption{font-family:"IBM Plex Mono",monospace;font-size:.72rem;letter-spacing:.05em;
+  color:var(--ink-faint);margin-top:.9em;padding-left:2px}
+
+/* ---------- deck projects: original pages kept whole ---------- */
+.dmeta{padding:clamp(18px,2.5vw,26px) 0;border-bottom:1px solid var(--rule);
+  font-family:"IBM Plex Mono",monospace;font-size:.72rem;line-height:1.85;color:var(--ink-faint)}
+.dmeta b{display:block;color:var(--ink);font-weight:500;letter-spacing:.04em;margin-bottom:.35em}
+.dmeta span{display:block;max-width:72ch}
+.dmeta.cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(18px,3vw,40px)}
+.dmeta.cols span{max-width:none}
+@media (max-width:640px){.dmeta.cols{grid-template-columns:1fr 1fr;row-gap:20px}.dmeta.cols>div:first-child{grid-column:1/-1}}
+.deck{padding:clamp(34px,6vw,64px) 0 clamp(20px,4vw,40px)}
+.dflow{max-width:68ch}
+.dflow h4{font-family:"Newsreader",Georgia,"Times New Roman",serif;font-weight:400;font-size:clamp(1.45rem,2.6vw,1.85rem);
+  line-height:1.15;letter-spacing:-.01em;text-transform:none;color:var(--ink);margin:2.2em 0 .6em;text-wrap:balance}
+.dflow h4:first-child{margin-top:.6em}
+figure.plate{max-width:1680px;margin:clamp(30px,4.5vw,56px) auto;padding:0 clamp(16px,2.4vw,40px)}
+figure.plate img{width:100%;height:auto}
+figure.plate .pz{position:relative;display:block;cursor:zoom-in}
+figure.plate .pz::after{content:"";position:absolute;right:12px;top:12px;width:34px;height:34px;border-radius:50%;
+  background:var(--panel) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23495664' stroke-width='1.8' stroke-linecap='round'%3E%3Ccircle cx='10.5' cy='10.5' r='6'/%3E%3Cpath d='M15 15l5 5M10.5 8v5M8 10.5h5'/%3E%3C/svg%3E") center/18px no-repeat;
+  border:1px solid var(--rule);box-shadow:var(--shadow);opacity:0;transition:opacity .25s;pointer-events:none}
+figure.plate .pz:hover::after,figure.plate .pz:focus-within::after{opacity:1}
+@media (hover:none){figure.plate .pz::after{opacity:.92}}
+figure.plate figcaption{max-width:1180px}
+
+/* ---------- Connected Care: one sheet, set like the original deck ---------- */
+.cc-outer{padding:0 clamp(16px,2.4vw,40px)}
+.cc-sheet{position:relative;overflow:hidden;max-width:1180px;margin:0 auto;background:#fff;color:#2b2b2b;
+  box-shadow:var(--shadow);padding:0 clamp(24px,6vw,96px)}
+section.cc{position:relative;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);column-gap:clamp(28px,5vw,72px);row-gap:clamp(24px,3vw,40px);
+  align-items:start;padding:clamp(48px,7vw,104px) 0;border-top:1px solid #ececec}
+section.cc:first-child{border-top:0}
+section.cc.solo,section.cc.wide{grid-template-columns:minmax(0,1fr)}
+.cc-t{position:relative;z-index:1}
+section.cc h3{font-family:"League Spartan","Helvetica Neue",Arial,sans-serif;font-weight:700;color:#111;
+  font-size:clamp(2.2rem,4.6vw,3.6rem);line-height:.95;letter-spacing:-.018em;margin:0 0 .55em;text-wrap:balance}
+section.cc p{font-size:1.02rem;line-height:1.66;margin:0 0 1em;max-width:58ch;text-wrap:pretty}
+section.cc p:last-child{margin-bottom:0}
+section.cc b{color:#111}
+section.cc.solo .cc-t{max-width:620px}
+section.cc p.cc-q{font-family:"League Spartan","Helvetica Neue",Arial,sans-serif;font-weight:400;color:#111;
+  font-size:clamp(1.7rem,3.7vw,2.9rem);line-height:1.14;letter-spacing:-.01em;margin:0;max-width:19ch}
+section.cc p.cc-q b{font-weight:700}
+section.cc.q{padding-block:clamp(64px,10vw,150px)}
+section.cc p.cc-end{font-size:.95rem;color:#666;max-width:none}
+section.cc.end{padding-block:clamp(28px,4vw,48px)}
+.cc-list{list-style:none;margin:0;padding:0}
+.cc-list li{padding:.75em 0;border-top:1px solid #ececec;line-height:1.55}
+.cc-list li:first-child{border-top:0;padding-top:0}
+.cc-list b{display:block;font-family:"League Spartan","Helvetica Neue",Arial,sans-serif;font-weight:700;font-size:1.12rem;letter-spacing:-.005em}
+.cc-m{position:relative;z-index:1}
+.cc-m img{display:block;width:100%;height:auto}
+.cc-m.stack{display:grid;gap:12px}
+.cc-m.collage{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cc-m.collage img{height:100%;object-fit:cover}
+.cc-m.collage img:first-child{grid-column:1/-1;height:auto}
+.cc-m [data-full]{cursor:zoom-in}
+.cc-m figcaption{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.68rem;color:#888;margin-top:.8em;letter-spacing:.02em}
+section.cc.wide .cc-t p{max-width:70ch}
+.cc-motif{position:absolute;z-index:0;pointer-events:none}
+.cc-motif.rings{right:-22%;top:-38%;width:62%;max-width:600px}
+.cc-motif.rings2{right:-14%;top:50%;transform:translateY(-50%);width:44%;max-width:460px}
+.cc-motif.dash{right:-2%;top:6%;width:36%;max-width:380px;height:88%}
+@media (max-width:760px){
+  section.cc{grid-template-columns:minmax(0,1fr)}
+  .cc-motif{opacity:.5}
+}
+
+/* ---------- written case studies: figures drawn in type ---------- */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:18px 28px;
+  margin:1.4em 0 1.8em;padding-top:1.1em;border-top:1px solid var(--rule)}
+.stats b{display:block;font-family:"Newsreader",Georgia,"Times New Roman",serif;font-weight:400;
+  font-size:clamp(2.3rem,5vw,3.3rem);line-height:1;letter-spacing:-.02em;color:var(--accent);margin-bottom:.25em}
+.stats span{display:block;font-family:"IBM Plex Mono",monospace;font-size:.72rem;line-height:1.55;color:var(--ink-soft)}
+.fan{margin:1.4em 0 1.8em;padding:1.2em 1.3em 1.35em;border:1px solid var(--rule);background:var(--plate)}
+.fan-k{font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-faint);margin:0 0 .5em!important}
+.fan-src{font-weight:600;margin:0 0 .9em!important}
+.fan-arrow{color:var(--accent);margin:.2em 0 .8em!important}
+.fan ul{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:8px}
+.fan li{border:1px solid var(--rule);background:var(--panel);padding:.35em .75em;font-size:.88rem}
+.compare{display:grid;grid-template-columns:1fr;gap:12px;margin:1.4em 0 1.8em}
+@media(min-width:640px){.compare{grid-template-columns:1fr 1fr}}
+.compare div{border:1px solid var(--rule);background:var(--panel);padding:1em 1.15em;font-size:.97rem;line-height:1.55}
+.compare div:last-child{border-color:color-mix(in srgb,var(--accent) 55%,var(--rule))}
+
+/* a phone screen beside the text that explains it */
+.aside{display:grid;grid-template-columns:minmax(0,280px) minmax(0,1fr);gap:clamp(20px,3.5vw,40px);align-items:center;margin:1.4em 0 1.9em}
+.aside figure{margin:0}
+.aside img{width:100%;border:1px solid var(--rule);border-radius:18px;box-shadow:var(--shadow);cursor:zoom-in}
+.aside figcaption{margin-top:.7em}
+.aside p:last-child{margin-bottom:0}
+@media(max-width:600px){.aside{grid-template-columns:1fr}.aside figure{max-width:280px}}
+/* workshop run sheet: steps with their card piles */
+.steps{margin:1.3em 0 1.9em;border-top:1px solid var(--rule)}
+.step{display:grid;grid-template-columns:minmax(0,6.5em) minmax(0,1fr);gap:1.2em;padding:1.25em 0;border-bottom:1px solid var(--rule)}
+.step-t{font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.1em;color:var(--ink-soft);padding-top:.5em;text-transform:uppercase}
+.step h5{font-family:"Newsreader",Georgia,"Times New Roman",serif;font-weight:400;font-size:1.25rem;color:var(--ink);margin:0 0 .3em}
+.step p{margin:0 0 .5em}
+.step p.prompt{font-style:italic;color:var(--ink)}
+.piles{display:grid;grid-template-columns:1fr;gap:14px;margin-top:.9em}
+@media(min-width:640px){.piles{grid-template-columns:1fr 1fr;grid-template-rows:repeat(6,auto);row-gap:0}
+  .piles .pile{display:grid;grid-row:span 6;grid-template-rows:subgrid;row-gap:6px}.piles .pile ul{display:contents}.piles .pile b{margin-bottom:0;align-self:end;padding-bottom:.25em}}
+.pile b{display:block;font-family:"IBM Plex Mono",monospace;font-weight:500;font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:.6em}
+.pile ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.pile li{display:flex;flex-direction:column;justify-content:center;background:var(--panel);border:1px solid var(--rule);padding:.5em .75em;font-size:.88rem;line-height:1.4;box-shadow:0 1px 2px rgba(13,19,25,.04)}
+@media(max-width:520px){.step{grid-template-columns:1fr;gap:.2em}}
+.pile li.fl{padding:0;background:none;border:0;box-shadow:none;display:block}
+.flip{all:unset;box-sizing:border-box;display:grid;width:100%;height:100%;min-height:3.4em;cursor:pointer;perspective:900px}
+.flip>span{grid-area:1/1;display:flex;align-items:center;padding:.55em .8em;background:var(--panel);border:1px solid var(--rule);
+  box-shadow:0 1px 2px rgba(13,19,25,.04);backface-visibility:hidden;-webkit-backface-visibility:hidden;transition:transform .55s cubic-bezier(.4,.1,.2,1)}
+.flip .ff{justify-content:space-between;gap:.6em;font-weight:600;color:var(--ink);font-size:.9rem}
+.flip .ff i{font-style:normal;font-weight:400;color:var(--ink-faint);font-size:.95rem}
+.flip .fb{transform:rotateY(180deg);font-size:.86rem;line-height:1.4;color:var(--ink-body);background:var(--plate)}
+.flip[aria-pressed="true"] .ff{transform:rotateY(-180deg)}
+.flip[aria-pressed="true"] .fb{transform:rotateY(0)}
+.flip:hover .ff{border-color:var(--ink-faint)}
+.flip:focus-visible>span{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){.flip>span{transition:none}}
+.compare ul{margin:.1em 0 0;padding-left:1.05em}
+.compare li{margin:.35em 0}
+.compare b{display:block;font-family:"IBM Plex Mono",monospace;font-weight:500;font-size:.66rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-faint);margin-bottom:.6em}
+.compare div:last-child b{color:var(--accent)}
+blockquote.pq{margin:1.6em 0 1.9em;padding-left:1.1em;border-left:2px solid var(--accent);
+  font-family:"Newsreader",Georgia,"Times New Roman",serif;font-size:clamp(1.2rem,2.3vw,1.5rem);line-height:1.35;max-width:52ch}
+blockquote.pq cite{display:block;font-family:"IBM Plex Mono",monospace;font-size:.7rem;font-style:normal;
+  letter-spacing:.06em;color:var(--ink-faint);margin-top:.7em}
+.truths{margin:1.2em 0 1.8em;border-top:1px solid var(--rule)}
+.truths div{display:grid;grid-template-columns:1fr;gap:.2em;padding:.95em 0;border-bottom:1px solid var(--rule)}
+@media(min-width:640px){.truths div{grid-template-columns:minmax(0,15em) 1fr;gap:1.2em}}
+.truths b{font-family:"Newsreader",Georgia,"Times New Roman",serif;font-weight:400;font-size:1.15rem}
+.truths span{color:var(--ink-soft)}
+
+/* drawn cover */
+.work-shot svg.cover{position:absolute;inset:0;width:100%;height:100%}
+.cv-k{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.16em;fill:var(--ink-faint)}
+.cv-s{font-size:10.5px;letter-spacing:.1em}
+.cv-h{font-family:"Newsreader",Georgia,"Times New Roman",serif;font-size:40px;fill:var(--ink)}
+.cv-em{font-style:italic;fill:var(--accent)}
+.cv-tally{fill:none;stroke:var(--accent);stroke-width:5.5;stroke-linecap:round}
+
+/* ---------- side projects ---------- */
+.side{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,270px),1fr));gap:clamp(16px,2vw,24px);
+  padding-bottom:clamp(60px,10vw,120px)}
+.sc{display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--rule);color:inherit;overflow:hidden;
+  transition:box-shadow .35s,border-color .35s}
+a.sc:hover{box-shadow:var(--shadow-lift);border-color:color-mix(in srgb,var(--accent) 38%,var(--rule))}
+a.sc:hover h3{color:var(--accent)}
+.sc-shot{aspect-ratio:16/10;background:var(--plate);border-bottom:1px solid var(--rule);overflow:hidden}
+.sc-shot img{width:100%;height:100%;object-fit:cover}
+.sc-b{padding:1.05em 1.15em 1.25em;display:flex;flex-direction:column;flex:1}
+.sc h3{font-family:"Newsreader",Georgia,"Times New Roman",serif;font-weight:400;font-size:1.4rem;line-height:1.1;
+  margin:0 0 .4em;transition:color .3s}
+.sc p{font-size:.9rem;line-height:1.5;color:var(--ink-soft);margin:0 0 1em}
+.sc span{margin-top:auto;font-family:"IBM Plex Mono",monospace;font-size:.62rem;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink-faint)}
+
+/* small functional text reads at body-secondary contrast, not decoration grey (WCAG AA) */
+.work-m{font-size:.7rem;color:var(--ink-soft)}
+.work-n,.gauge,.back,figcaption,.fan-k,.compare b,footer{color:var(--ink-soft)}
+.sc span{font-size:.66rem;color:var(--ink-soft)}
+.dmeta{color:var(--ink-soft);font-size:.76rem}
+blockquote.pq cite{color:var(--ink-soft)}
+.dflow .note{max-width:none}
+
+/* one box style for every boxed figure in a written case study: tint, no outline */
+.dflow .fan,.dflow .compare,.dflow .note{background:var(--plate);border:0;box-shadow:none}
+.dflow .note{color:var(--ink-soft);font-size:.95rem}
+.dflow .note b{color:var(--ink-body);font-weight:600}
+.fan-to{margin:0!important;line-height:1.6}
+.dflow .compare{gap:0;padding:0}
+.dflow .compare div{background:none;border:0;padding:1.05em 1.3em}
+.dflow .compare div+div{border-top:1px solid var(--rule)}
+@media(min-width:640px){.dflow .compare div+div{border-top:0;border-left:1px solid var(--rule)}}
+
+/* bar figure, and per-project palettes: each project keeps its own colours, as the original decks do */
+.bars{margin:1.4em 0 1.8em;padding:1.2em 1.3em 1em;background:var(--plate)}
+.bars-key{display:flex;flex-wrap:wrap;gap:6px 20px;font-family:"IBM Plex Mono",monospace;font-size:.68rem;
+  letter-spacing:.06em;color:var(--ink-soft);margin-bottom:1em}
+.bars-key i{display:inline-block;width:10px;height:10px;margin-right:7px;vertical-align:-1px}
+.br{display:grid;grid-template-columns:1fr;gap:4px;padding:.55em 0;border-top:1px solid var(--rule)}
+@media(min-width:560px){.br{grid-template-columns:minmax(0,13em) 1fr;gap:16px;align-items:center}}
+.bl{font-size:.88rem;line-height:1.3}
+.bt div{display:flex;align-items:center;gap:8px;height:13px;margin:3px 0}
+.bt i{display:block;height:100%;min-width:2px}
+.bt b{font-family:"IBM Plex Mono",monospace;font-weight:400;font-size:.68rem;color:var(--ink-soft)}
+.bars figcaption{margin-top:.8em}
+.ka,.ba{background:var(--accent)}.kb,.bb{background:var(--accent-2)}
+.pal-at{--accent:#171fac;--accent-2:#7a79fa;--plate:#fff;--panel:#fff;--rule:#e6e1f2}
+.pal-at .dflow .fan,.pal-at .dflow .compare,.pal-at .dflow .note,.pal-at .bars{color:#1b1b2a}
+.pal-at .bars-key,.pal-at .bt b,.pal-at .bars figcaption,.pal-at .compare b,.pal-at .dflow .note{color:#4a4870}
+.pal-at .compare div:last-child b{color:#171fac}
+.pal-at figure.plate{max-width:1180px}
+.pal-ccs figure.plate{max-width:1180px}
+.pal-ccs figure.plate.sq{max-width:860px}
+figure.vid video{display:block;width:100%;height:auto;border:1px solid var(--rule);box-shadow:var(--shadow);background:#fff}
+.vbox{position:relative}
+.vplay{position:absolute;left:54.2%;top:85%;width:24.2%;height:10.5%;display:flex;align-items:center;justify-content:center;gap:.6em;
+  padding:0;border:0;border-radius:clamp(6px,1.1vw,14px);background:#0e1420;color:#fff;cursor:pointer;
+  font:600 clamp(.66rem,1.45vw,1.12rem)/1 "Inter","Public Sans",sans-serif;letter-spacing:-.005em;
+  box-shadow:0 8px 22px rgba(14,20,32,.28);transition:background .2s,box-shadow .2s}
+.vplay:hover{background:#171fac;box-shadow:0 10px 28px rgba(23,31,172,.35)}
+.vplay b,.vplay span,.vplay:hover b,.vplay:hover span{color:#fff}
+.vplay:focus-visible{outline:3px solid #7a79fa;outline-offset:3px}
+.vplay span{font-size:.72em}
+.dflow figure.chart{margin:1.4em 0 1.9em}
+.dflow figure.shot{margin:1.4em 0 1.9em}
+.dflow figure.shot img{width:100%;border:1px solid var(--rule);box-shadow:var(--shadow)}
+.mlog{margin:1.4em 0 1.9em;background:var(--plate);padding:.4em 1.2em .6em;font-size:.88rem;line-height:1.45}
+.mlog-h,.mlog-r{display:grid;grid-template-columns:1fr;gap:.25em;padding:.75em 0;border-top:1px solid var(--rule)}
+.mlog-h{display:none;border-top:0;font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+@media(min-width:640px){.mlog-h{display:grid}.mlog-h,.mlog-r{grid-template-columns:minmax(0,1.3fr) minmax(0,.8fr) minmax(0,1.3fr);gap:16px}}
+.mlog-r b{display:block;font-weight:600}
+.mlog-r i{display:block;font-style:normal;color:var(--ink-soft);font-size:.82rem}
+.mlog-r em{font-style:normal;font-family:"IBM Plex Mono",monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;
+  color:#fff;background:var(--accent);padding:.15em .5em;margin-left:.4em;vertical-align:1px}
+@media(min-width:640px){.mlog.two .mlog-h,.mlog.two .mlog-r{grid-template-columns:minmax(0,1fr) minmax(0,1.6fr)}}
+.pal-at .mlog{color:#1b1b2a}.pal-at .mlog-r i,.pal-at .mlog-h{color:#4a4870}
+.dflow figure.chart img{width:100%;border:0;box-shadow:none;cursor:zoom-in}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .pal-at{--accent:#8f8ef8;--accent-2:#c9c6fb}}
+:root[data-theme="dark"] .pal-at{--accent:#8f8ef8;--accent-2:#c9c6fb}
+
+/* full-size viewer: optional, the page reads without it */
+.lb{position:fixed;inset:0;z-index:100;overflow:hidden;touch-action:none;cursor:grab;
+  background:color-mix(in srgb,var(--paper) 97%,transparent)}
+.lb.grab{cursor:grabbing}
+.lb img{position:absolute;left:0;top:0;max-width:none;width:auto;transform-origin:0 0;
+  border:0;box-shadow:var(--shadow-lift);background:var(--panel);opacity:0;transition:opacity .25s;
+  user-select:none;-webkit-user-drag:none}
+.lb img.on{opacity:1}
+.lb-hint{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 18px);transform:translateX(-50%);
+  margin:0;padding:.55em 1.1em;border-radius:99px;background:var(--panel);border:1px solid var(--rule);
+  font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.08em;color:var(--ink-soft);
+  white-space:nowrap;pointer-events:none;animation:hintout .6s ease 3.2s forwards}
+@keyframes hintout{to{opacity:0}}
+.lb-x{position:fixed;top:calc(env(safe-area-inset-top,0px) + 14px);right:18px;z-index:101;
+  width:40px;height:40px;border-radius:50%;border:1px solid var(--rule);background:var(--panel);color:var(--ink);
+  font:400 1.3rem/1 "Public Sans",sans-serif;cursor:pointer}
+.lb-x:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+.next{border-top:1px solid var(--rule);padding:clamp(34px,5vw,56px) 0 clamp(70px,11vw,120px)}
+.next a{font-family:"Newsreader",Georgia,"Times New Roman",serif;font-size:clamp(1.6rem,4vw,2.6rem);
+  line-height:1.15;display:block;max-width:20ch}
+.next .gauge{margin-bottom:.6em}
+
+footer{border-top:1px solid var(--rule);padding:clamp(34px,5vw,54px) 0 clamp(50px,8vw,80px);
+  font-family:"IBM Plex Mono",monospace;font-size:.75rem;line-height:2.1;color:var(--ink-faint);letter-spacing:.02em}
+footer a{border-bottom:1px solid var(--accent-dim)}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none!important}
+  #rain{opacity:calc(var(--rain-op)*.5)}
+}
+</style>
+<link rel="canonical" href="https://mufei-gh.github.io/ai-automation">
+</head>
+<body>
+<canvas id="rain" aria-hidden="true"></canvas>
+<div id="grain" aria-hidden="true"></div>
+
+<nav>
+  <div class="nav-in">
+    <a class="brand" href="/">Mufei Chen</a>
+    <a class="nv" href="/" data-nv="work">Work</a>
+    <a class="nv" href="/about" data-nv="about">About</a>
+  </div>
+</nav>
+
+<main id="app"></main>
+
+<script>
+/* ============ asset manifest: filled after upload ============ */
+var A = {
+  th_access: "/assets/fa4ef0d72ee86ff0c1446c0fe2ad33d8.jpg",
+  th_pulse: "/assets/3fda537c1f20402306dae30884430545.jpg",
+  th_roomsense: "/assets/b9921e37e07393629b248053874b7267.jpg",
+  rs_hw: "/assets/033590ecb16d020588de8e429aaefbe6.jpg",
+  rs_arch: "/assets/501d2fe049992910dbf0216c6b3e5a76.png",
+  rs_score: "/assets/5e7669d54a10c04dda44de0901a84e4d.png",
+  rs_ui: "/assets/8b2e61508f407e91e2d640fe7337b7df.png",
+  rs_phone: "/assets/4830e5dd9c734083cd46dfb7deb31f1e.jpg",
+  rs_demo: "/assets/af5b467a45aac00a6778c9854e620b19.png",
+  rs_phones: "/assets/5f4846bed612a96c2a80235db6f31ca0.png",
+  rs_devices: "/assets/51f9d13aa9ef6560bf8fd2185ca9a8e3.jpg",
+  rs_week: "/assets/deaf99eec7005a4dd6348e454962825e.png",
+  at_demo: "/assets/271498f7483636d7d60145cff41ca7c2.mp4", at_demo_poster: "/assets/4a924253000073b69be1e43dd2508305.jpg",
+  at_slide1: "/assets/5953fa6ea405a66dc95785396103d540.jpg",
+  at_box: "/assets/84d640f5d938e95b652320aba6975d01.png",
+  at_cm2: "/assets/ff92ffed19243985de3fe45c7bb29558.png", at_coef2: "/assets/b3785f7290dcc4b3a21fce0f09ad8674.png",
+  at_cm: "/assets/c724a6565fd1dbd6646959847ff57146.png", at_coef: "/assets/31fb748d0bf66fbf6bdd14c2c3190050.png", at_pca: "/assets/dc2bfd9fef5f9f394a23a19e45874faa.png",
+  at_p20: "/assets/411a419abfd6d4368c02658a12c7d046.jpg", at_p20_full: "/assets/aad6892dd06d615ee0cddb0b3f16515a.jpg",
+  at_p21: "/assets/cacf7b41c8068ba24454beccb1a161b7.jpg", at_p21_full: "/assets/49b987c51fed0db139e9ecab4f29dd4e.jpg",
+  at_p22: "/assets/6071c0175253e631c2c60fc53849aa11.jpg", at_p22_full: "/assets/8e1368d05b2a2c08571375f13b25d882.jpg",
+  th_pill: "/assets/235968bb1c4714b4ad28eacdebd0a14d.jpg",
+  th_fin: "/assets/b1df81b00d3a22a85172de2f0bf0a7db.jpg",
+  th_care: "/assets/16e14d3dbea310af13e98d0356e995a3.jpg",
+  access_1_problem: "/assets/2db42961c89cf79803c317439d51dbc5.jpg",
+  access_2_data: "/assets/4b32c6ba6eaa9dd065d4f6282e3141cf.jpg",
+  access_3_stats: "/assets/653bc3688a18064380bf715b82d9c7e2.jpg",
+  access_4_super: "/assets/ab1b10dcf11b8a9a244eb226e05b7d65.jpg",
+  access_5_forest: "/assets/3c6755122c1ee430ee5972bfff221713.jpg",
+  access_6_cluster: "/assets/ba5c1058aa277169afa24f3ddcd3c667.jpg",
+  access_7_proto: "/assets/9edf11717fc098fcb47340d693c6e9f0.jpg",
+  pulse_1_intro: "/assets/2c69c48724a724179752d301f3425b9d.jpg",
+  pulse_2_research: "/assets/4206d6eb70821c0194dedea2b1e854f0.jpg",
+  pulse_3_design: "/assets/2410d5ae3c69c94b7e0ca425288d514d.jpg",
+  pulse_4_proto: "/assets/d1b196891531fcfd7d313f21a637804e.jpg",
+  pill_1_research: "/assets/6122d927689de268a07455d8b04ca5ea.jpg",
+  pill_2_system: "/assets/7c415b8fed81a55464db13ccfed5f08e.jpg",
+  pill_3_design: "/assets/7a62e9b5f6840ac9d6e3666d11837eb0.jpg",
+  pill_4_delivery: "/assets/85f7b70e4d0546da8ce2e8d8c98d4f50.jpg",
+  fin_1_context: "/assets/3acf25131f7735586bf8f6a48ab05ff1.jpg",
+  fin_2_users: "/assets/ae6b882130e33b18b5191186fc38a9b2.jpg",
+  fin_3_insights: "/assets/0d1f18b8c09be94bcb978b6a8b4190a5.jpg",
+  fin_4_meta: "/assets/5f44244e3a9d9c496d5d320724722370.jpg",
+  fin_5_opp: "/assets/b3a9f794af9978e5a9a4531f605d1444.jpg",
+  care_1_signals: "/assets/a370243bfb866e4a58547719eb44d125.jpg",
+  care_2_futures: "/assets/e571f195ba706aa657f7fa7daf9ba910.jpg",
+  care_3_workshop: "/assets/0aacc5a7bb47c6742656957402717dcb.jpg",
+  care_4_insights: "/assets/d9881c3d542fdcbedcf1aecf3dc5a9e4.jpg",
+  care_map: "/assets/823aa84c9ec532595d90d07ff98d611b.png",
+  cc_s52: "/assets/a92324a66b01b1ecbf0a54d0ad13f00b.png",
+  cc_s52_full: "/assets/b4ad831a1e64443f75a63c89a93d2ebb.png",
+  cc_s53: "/assets/56954c96f4e2cadcfd0a3ce06e4eab23.jpg",
+  cc_s53_full: "/assets/6c077458a7bcf9339052d4686afd12c4.jpg",
+  cc_s54: "/assets/74ca8b1009e0f537f348afc5545aaf88.png",
+  cc_s54_full: "/assets/55dd737828607129925c5b735392f6f5.png",
+  cc_s55: "/assets/43db3eb444f97e630fa8e6e2b036a539.jpg",
+  cc_s55_full: "/assets/72ee48db0b9c0345c3b619974e845667.jpg",
+  cc_s56: "/assets/13456ba9663e27c8362ee588869e509e.jpg",
+  cc_s56_full: "/assets/52a1ea5df311b5e04cc289a7ec4b7597.jpg",
+  cc_s57: "/assets/e3e94a5deec04bec6aa95e6ed0488c89.png",
+  cc_s57_full: "/assets/b50fefba8182bffabd0c1956eb927d5c.png",
+  cc_s58: "/assets/a2a36b8b8b7002e5d4289a3f3dae5ac6.jpg",
+  cc_s58_full: "/assets/e973219f2d7e10a9a1f34d233f1539fd.jpg",
+  cc_s59: "/assets/52dbca3aecf058c3596a81b8a4d8fe5c.jpg",
+  cc_s59_full: "/assets/917d26589d276fe7e00b7fd89ea2adcc.jpg",
+  cc_s60: "/assets/118eca7d715c1413e67db30c5861784c.jpg",
+  cc_s60_full: "/assets/f2d4b1bd4401e13310e2cbac4047853e.jpg",
+  cc_signals: "/assets/fa2b0381b137ff8a774b564513e33656.jpg",
+  cc_signals_full: "/assets/ed03979edaab88182d7d4e8170b9e01a.jpg",
+  cc_pref: "/assets/378f59760a702223ad2dd209b9d51bc8.jpg",
+  cc_trap: "/assets/2cceff71dcacfc94befba7dcbaff9c0a.jpg",
+  cc_act_room: "/assets/2df8a05b92489571a2925bf7dfea238f.jpg",
+  cc_act_notes: "/assets/eb6ef4ac04bc670068720e0d395302e3.jpg",
+  cc_act_table: "/assets/ca4689cedae854e9cba1466e48096758.jpg",
+  cc_boards: "/assets/016b53f861b98521b9e496456c57598e.jpg",
+  cc_pov: "/assets/24f7b0d8d6dda26067ce3673a16e519f.jpg",
+  care_map_full: "/assets/2e74aa033c9dfecd50846f1a11ce9607.png",
+  /* PillCloud and The Pulse Flow: whole original pages (plates), and their full-size versions */
+  pc_p11: "/assets/0bbe7b555753fa7e3629aadc58e2301d.jpg",
+  pc_p11_full: "/assets/3e72eb71c5f75b5bb0e4897fd7c80fd9.jpg",
+  pc_p12: "/assets/a519c20de29fac05f8f15fee76132ba1.jpg",
+  pc_p12_full: "/assets/f9c72688da8c9315b7c71a6ccb2704fa.jpg",
+  pc_p13: "/assets/2105e86bcb96bff210b4dca52577bc3f.jpg",
+  pc_p13_full: "/assets/6f86c139259cfbbdd9743c795377cf72.jpg",
+  pc_p14: "/assets/42bd2070826e1d1d32effa02278f2d17.jpg",
+  pc_p14_full: "/assets/eb99a87f90a5a20d0dfaefdc52f91a5a.jpg",
+  pc_p15: "/assets/7889bfdffc34b3dafcbdae082a5edf75.jpg",
+  pc_p15_full: "/assets/d06d3159b5ecac5ffcb400f2b995104a.jpg",
+  pc_p16: "/assets/41808fd6915a96fcebc2794c0ba46e46.jpg",
+  pc_p16_full: "/assets/0a539c2eb1517f8deb90d316854b03a2.jpg",
+  pc_p17: "/assets/829e4b49fe129a78fa14902cfd46c673.jpg",
+  pc_p17_full: "/assets/b2cceba5cc9ad6d98749fa398c025edd.jpg",
+  pc_p18: "/assets/85fa4897de6f9cfbfd5b5f70ad94f97d.jpg",
+  pc_p18_full: "/assets/dc8b78fd011d0c0a2d4e4e90a53329e3.jpg",
+  pf_p03: "/assets/da944966a050e37ecffa5806724aab67.jpg",
+  pf_p03_full: "/assets/dfdee04f862e726a51b38ec6ed27ec08.jpg",
+  pf_p04: "/assets/d9b869e40645c6c8e25bd873954b65e9.jpg",
+  pf_p04_full: "/assets/cdab7a32071028d524dad9b43d5c6a3d.jpg",
+  pf_p05: "/assets/85657d75600dd5a5962e7e17393011cc.jpg",
+  pf_p05_full: "/assets/d4af3bf57b86e148b755f5303813d88d.jpg",
+  pf_p06: "/assets/2a04b94cc063496046ba5596529e9bf5.jpg",
+  pf_p06_full: "/assets/cd4635d5b6bf5e8f75594fb7c0653603.jpg",
+  pf_p07: "/assets/98b51ff1d19b223dd14ed57a4dc57ffc.jpg",
+  pf_p07_full: "/assets/001b9844e34931218045914d506a8da0.jpg",
+  pf_p08: "/assets/0ab46cfee819195db0cd45b0fe357a53.jpg",
+  pf_p08_full: "/assets/5d989676af094674035bfe7c8fbfe1d1.jpg",
+  pf_p09: "/assets/9fc3527b197f503b6b06f89cb7e9221a.jpg",
+  pf_p09_full: "/assets/a2b18df9decd7d94e91fee6314c33211.jpg",
+  pf_p10: "/assets/0d14ecc116edf1a0efc874bd45411506.jpg",
+  pf_p10_full: "/assets/fb59bdb6df347e203ef467ee32cd12cc.jpg"
+};
+
+/* ============ content ============ */
+var P = [
+{
+  id:"pulseflow", num:"01", deck:true, title:"The Pulse Flow",
+  head:"Physical therapy, brought home and turned into play",
+  finding:"Patients were tired of follow-up visits but willing to work on how they felt day to day. The Pulse Flow turns physical therapy into a game at home and records how each movement was actually done.",
+  tags:["User research","Digital health","Serious games","Wearable sensing"],
+  thumb:"th_pulse",
+  rail:[["Solo project","Research, exercise mapping, game and interface design, system map, wearable concept. Prototype scenes assembled in Unity from existing assets."]],
+  flow:[
+    {p:"This project started with a question: how do we help people with autoimmune disease stay engaged in long-term treatment when there may not be a cure?"},
+    {p:"I focused on IgG4-related disease, a rare condition that can affect almost any organ. It can take four to five years to get diagnosed, and steroids, often the first treatment, come with their own side effects, including weaker bones, higher blood sugar, and changes in mood."},
+    {p:"When I talked to patients, I found that they were tired of medical follow-ups. Every appointment meant another trip, another specialist, and another reminder of their illness. What they cared more about was feeling better in everyday life. One patient told me, \"I only want to be more comfortable.\""},
+    {p:"That conversation shifted my focus. Instead of starting with how to get patients back to their appointments, I started with how to help them feel stronger and more capable in their daily lives. My thinking was that if patients could see progress in something they cared about, they might feel more motivated to stay engaged in their care."},
+    {p:"Physical therapy was one way to support that, but it came with its own challenges. Patients were dealing with symptoms in different parts of their bodies, the exercises were repetitive, and progress was often hard to see."},
+    {p:"That's where The Pulse Flow comes in. It's a home-based physical therapy game that turns exercises into small, playful tasks. A wide row helps grow tomatoes. A bridge helps a rabbit cross a river. Sensors on the arms and legs track how the patient moves, so the game can give feedback on their form, while the therapist can see how the exercises were actually performed, rather than just whether the patient reported completing them."},
+    {plate:"pf_p03", cap:"Overview"},
+    {plate:"pf_p04", cap:"Secondary research, field studies"},
+    {plate:"pf_p05", cap:"Primary research, insights, persona, problem statement"},
+    {plate:"pf_p06", cap:"Exercise taxonomy, workflow, wearables"},
+    {plate:"pf_p07", cap:"Competitive analysis, system map"},
+    {plate:"pf_p08", cap:"Prototypes: wide row, bridge"},
+    {plate:"pf_p09", cap:"Prototypes: side shuffle, hip extension"},
+    {plate:"pf_p10", cap:"Design highlights"}
+  ]
+},
+{
+  id:"pillcloud", num:"02", deck:true, title:"PillCloud",
+  head:"A missed dose usually starts upstream",
+  finding:"Doses change without everyone being told, and instructions reach someone other than the person giving the pills. PillCloud connects the patient, the physician, and the pharmacy.",
+  tags:["Connected health","Service design","Systems","Industrial design"],
+  thumb:"th_pill",
+  rail:[["Solo project","Research, service design, interface and industrial design, claim drafting"]],
+  flow:[
+    {p:"Picture a patient in her seventies. She's had high blood pressure and high cholesterol for years, and she sees both a primary care physician and a cardiologist. Last month, her doctor increased her blood pressure medication and asked her to track her readings at home. But some days she forgets to take the pill. Other days she can't find where she wrote down her readings."},
+    {p:"At first, this looks like a patient problem. But my research showed that the problem often starts somewhere else. Physicians told me they give instructions to patients, but it's sometimes a family member or caregiver who's actually managing the medication. A pharmacist described how one doctor might change a dose without the other doctors knowing. And one patient admitted that they usually don't pick up their refills until the pharmacy reminds them three times. What I kept hearing was that medication management depends on several people, but those people aren't always communicating."},
+    {p:"That's where PillCloud comes in. It connects the people involved in her care. She uses an app to see her daily medications, track her blood pressure, and attend video visits, and a family member can share that view. When her dose went up last month, the change would have reached the pharmacy and her cardiologist through the same record, instead of through her memory of the appointment. Her physician can review her medication history and readings before the next visit, and check insurance coverage when prescribing. The pharmacy can verify prescriptions, manage refills, and send reminders."},
+    {p:"And at home, a pill organizer releases one dose at a time. If she misses a dose, it stays in a separate chamber. That way, her medication record doesn't depend entirely on what she remembers."},
+    {plate:"pc_p11", cap:"Overview"},
+    {plate:"pc_p12", cap:"Secondary research, questionnaire, interviews"},
+    {plate:"pc_p13", cap:"Journey map, insights, personas"},
+    {plate:"pc_p14", cap:"Competitive analysis, ideation, service blueprint"},
+    {plate:"pc_p15", cap:"Stakeholder map, system map"},
+    {plate:"pc_p16", cap:"Lo-fi prototypes, mobile and desktop"},
+    {plate:"pc_p17", cap:"Hi-fi prototype, patient and provider"},
+    {plate:"pc_p18", cap:"Mechanism sketches and delivery"},
+    {note:"<b>Also drafted:</b> a sixteen-claim patent claim set for the organizer mechanism: the rotating dispenser, the guide surface, the two-panel bottom gate, the recycling chamber, and expiration-triggered release. Written as graded coursework; not filed."}
+  ]
+},
+{
+  id:"ai-automation", num:"03", deck:true, title:"AI Automation in Deathcare",
+  head:"Why nobody has built the obvious product",
+  finding:"Exploring where AI automation could help funeral homes. Directors rarely name paperwork as their pain, but counting how often they re-type the same data showed a real problem, and why a better model alone can't fix it.",
+  tags:["Product discovery","User research","AI products","Regulation"],
+  cover:"funeral",
+  rail:[["Product intern, Tesslate","Product audit, research plan, interview guides, screener and participant recruitment, user interviews, synthesis"]],
+  flow:[
+    {p:"I was a product intern at Tesslate, working on OpenSail, a platform meant to let people who don't write code hand repetitive work to AI agents. Before interviewing anyone, I tested the product myself. The test runs already suggested that non-technical users would get lost, so I wrote that down as one of five assumptions to check."},
+    {stats:[["11","interviews"],["233","tagged observations"],["20","screener responses"]]},
+    {h:"Round one: it looks like a chatbot"},
+    {p:"I interviewed five people outside tech: an M&A analyst, a lab manager, a game developer, a designer, and an operations coordinator. Four of the five said a version of the same sentence on first sight: it looks like a typical chatbot. Two of them could not read the screens at all. What my testing had predicted showed up in real behavior."},
+    {p:"Partway through synthesis, the team sunset the product. I redirected the evidence toward what it could still answer. Retention had failed because people could not see what made the product different, so they had no reason to come back. One pattern was worth carrying forward: in every workflow, the person was the glue between tools, copying the same information from one system to the next."},
+    {h:"Round two: funeral homes"},
+    {p:"The team then turned to the funeral industry, to explore where AI automation could do real work. I wrote a discovery guide built on The Mom Test: no pitch, no product, only recent real cases. I built a screener with decoy roles so the target wasn't obvious, recruited partly through Tetra Insights, and interviewed six people across North Carolina, Maryland, Texas, and New Jersey, from small family firms to a national chain. Recruiting was the constraint. Funeral directors are on call, so several were willing but could not hold a scheduled slot."},
+    {h:"Layer one: a real problem"},
+    {p:"Five of six participants described the same scene without being asked. A family gives their details once, at the arrangement conference. Then someone types them into the state system, the obituary, the insurance claim, the case file, and the accounting software."},
+    {fan:{src:"Family vitals: names, date of birth, SSN", to:["State death registration system","The obituary","The insurance claim","The case file","Accounting software"]}},
+    {quote:"Unless there's a system created that connects everything, so I wouldn't have to do stuff repeatedly.", by:"Funeral home administrator, Texas"},
+    {p:"It was the round-one pattern again: the person as the glue between systems. And the fix looked obvious: capture the details once, and fill every destination from there."},
+    {h:"Counting instead of asking"},
+    {p:"Then two firms of almost the same size, about 300 cases a year, gave opposite answers. One said there was nothing hard about the paperwork. The other's owner spends about 60% of her week on it."},
+    {p:"Size didn't explain it. Two things did, at least partly. At the firm that felt no pain, admin was split across people who also held licensed roles. And at the firms that did feel it, paperwork was the queue that got set down for families and picked up at night. Ask what's most frustrating, and people tell you about families."},
+    {p:"So I changed the guide. Instead of asking what hurts, I asked how often something happened last week, and where the same field gets typed again. The owner who answered the new questions put it plainly: twice a week, every week."},
+    {h:"Layer two: the money isn't buying time"},
+    {p:"An industry already exists to take this work off funeral homes' hands, for about 10% of a funeral."},
+    {compare:[["What it looked like","A market price for exactly the problem we were considering solving."],["What it actually was","Cash flow and risk. The service pays the funeral home now, then collects from the insurer weeks later."]]},
+    {quote:"If you're a mom and pop funeral home that does maybe 40 funerals a year, you don't have the liquid funds to advance.", by:"Owner, New Jersey"},
+    {p:"Sorting every kind of outside help these firms paid for gave five categories: physical presence, capital and risk, emotional work, licensed judgment, and document work. Only the last is something software can supply."},
+    {h:"Layer three: nobody wants to learn another system"},
+    {p:"Firms already have case management software, know it, and are tired of switching. When a vendor brought new software to one owner, she turned it down, and price never came up."},
+    {quote:"We have a hard enough time, we just got used to doing this, we're not switching.", by:"Owner, New Jersey"},
+    {p:"Yet this industry does change, when it is forced or when something plainly works. COVID ended walk-ins, and one firm went appointment-only and kept it. Electronic death registration replaced a paper shuttle, and the people who mentioned it called it easier. So the opening is not a new platform. It is one narrow thing that saves a step in the first week, inside the systems they already use."},
+    {h:"Layer four: the space isn't empty, it's gated"},
+    {p:"Even when their own part is done, funeral homes wait on the doctor, the state system, and the insurer. One participant drew the line herself: technology can streamline internal data entry, but it “cannot force the government database to move faster.” So why has nobody built the obvious fix? Desk research pointed to the state."},
+    {stats:[["2021","First vendor integration with a state death registration system shipped"],["20+","States approached since. The answer is almost always “not yet.”"]]},
+    {p:"The state has to build the API first, and in the one success, the state association drove it. The bottleneck is regulatory access, not model capability. Better automation cannot open a door the state has not built."},
+    {h:"So what would actually have to be true"},
+    {truths:[["The problem is real","Confirmed across states and firm sizes."],["The demand is untested","Nobody has paid for it, and nobody was asked."],["The entry has to be small","One entry that fills a few documents, inside the routine they already have."],["The moat is political","Opening state access matters more than a better model."]]},
+    {note:"The research did not produce a build recommendation. It produced a sharper question: would a funeral home pay to type something once instead of five times, separate from being paid sooner? The team moved on before the next round, so that question is still open."}
+  ]
+},
+{
+  id:"accesstune", num:"04", deck:true, palette:"at", title:"AccessTune",
+  head:"Same complaint, different need",
+  finding:"Two people can complain about the same interface problem, but that doesn\u2019t mean they need the same solution. AccessTune explores how to recognize the difference.",
+  tags:["Machine learning","NLP","Behavioral measurement","Accessibility"],
+  thumb:"th_access",
+  rail:[["Solo project",'NLP classification, supervised and unsupervised learning, adaptive interface design, interactive prototype \u00b7 Live demo: <a href="https://accesst.vercel.app" target="_blank" rel="noopener">accesst.vercel.app</a>']],
+  flow:[
+    {p:"Two Google Play reviews from the dataset show the problem. Both were categorized under UI elements, and both asked for almost the same thing."},
+    {compare:[["Sentiment +0.25","\u201cI\u2019d love it if \u2026 play and pause buttons were bigger.\u201d"],["Sentiment \u22120.18","\u201cYou could at least make the scroll bar bigger so I could at least use it.\u201d"]]},
+    {p:"The first person would prefer a bigger button. The second is struggling to use the app at all."},
+    {p:"Yet both complaints fall into the same category. And if these users opened the accessibility settings, they\u2019d likely have to figure out which adjustments to make themselves."},
+    {p:"That seemed like a strange expectation. People usually know when something is difficult to use, but they don\u2019t necessarily know which setting would solve the problem."},
+    {p:"I wanted to see whether there was a way to recognize those needs without asking people to diagnose the problem themselves."},
+    {h:"Starting with what people already say"},
+    {p:"App reviews seemed like a reasonable place to start. People describe what frustrates them, what they wish worked differently, and sometimes what prevents them from using an app altogether."},
+    {p:"I combined two Google Play review datasets: one scored for sentiment using TextBlob, and another manually categorized by accessibility issue and WCAG principle."},
+    {p:"After standardizing the text and collapsing 1,256 duplicated rows into single records, I had 2,663 accessibility-related reviews. Of those, 1,167 had manually assigned categories. I trained a TF-IDF logistic regression classifier, which reached 61.5% accuracy across 13 categories, and then fine-tuned DistilBERT to label the remaining 1,496 reviews."},
+    {stats:[["2,663","accessibility-related app reviews"],["1,167","labeled by hand into 13 categories"],["195","negative reviews among them"]]},
+    {p:"A pattern emerged. About a third of the accessibility mentions involved UI elements, such as buttons and controls. These also accounted for nearly half of the negative reviews in the analyzed data. Text-related problems were another common complaint."},
+    {bars:{rows:[["UI Elements",34.2,44.1],["Text",12.0,15.4],["Flexibility and Efficiency",15.3,5.6],["Audio",7.9,6.2],["User Control",5.8,5.6],["Eight other categories",24.8,23.1]],
+      a:"Share of all mentions", b:"Share of negative reviews", note:"1,167 hand-labeled reviews; 195 negative"}},
+    {p:"So I had a better idea of where people were running into trouble."},
+    {p:"But I kept thinking about those first two reviews. Both were about making interface elements bigger, yet the consequences seemed very different. Could the data capture that difference?"},
+    {h:"Could the models tell how serious a problem was?"},
+    {p:"I tried using sentiment as a rough indicator of how negatively someone experienced an accessibility issue."},
+    {p:"The question was whether knowing the type of issue could help predict the sentiment of the review."},
+    {chart:"at_box", cap:"The distributions overlap almost completely, an early hint that category alone would not separate positive from negative."},
+    {p:"I started with logistic regression because I wanted to understand which categories were associated with positive or negative sentiment, not just get a prediction. Since positive reviews outnumbered negative ones by roughly four to one, I experimented with class weighting, SMOTE on the training data, and different decision thresholds."},
+    {p:"I also tested a random forest to look for non-linear patterns and a decision tree to see whether there were useful rules hiding in the data."},
+    {p:"I relied on balanced accuracy rather than plain accuracy. With about four in five reviews positive, always guessing positive would score around 80% while learning nothing."},
+    {p:"The results were underwhelming."},
+    {p:"Most of the models achieved balanced accuracy around 0.57, only slightly better than random guessing for the binary task. Some categories leaned more negative than others, but the differences were small."},
+    {chart:"at_coef2", cap:"Coefficients from the clean models. Tangible interaction and flexibility lean positive; recognition, text, and perceivable problems lean negative. The effects are small."},
+    {p:"In other words, knowing what someone complained about didn\u2019t tell me much about how negatively they described the experience."},
+    {p:"When category alone stayed weak, I added every variable I had, including the review\u2019s polarity score. Accuracy jumped to 98%, and a random forest reached 100%. But the sentiment label is computed from that score, so those models were restating the label rather than learning anything."},
+    {p:"They also fail a simpler product test. A feature is only useful if it exists at the moment you need the prediction. To help someone, you would need to know their needs before they write a review, and the polarity score only exists after one is written."},
+    {h:"Looking for patterns without labels"},
+    {p:"I also tried PCA and k-means clustering to see whether accessibility complaints would naturally form meaningful groups."},
+    {p:"One cluster separated quite clearly: UI elements."},
+    {p:"But that wasn\u2019t the discovery it first appeared to be. UI elements was already the largest category, and its representation in the one-hot encoded data helped drive the separation. The first two principal components explained only about a fifth of the variance."},
+    {p:"So clustering wasn\u2019t revealing a new distinction between users either."},
+    {p:"Every model I ran, in one place:"},
+    {log:[["Logistic regression","category only, class-weighted","balanced accuracy 0.57","Direction is readable; the signal is weak"],
+      ["Logistic regression","WCAG principle only","balanced accuracy 0.56","Perceivable problems lean most negative, Robust most positive"],
+      ["Random forest","category only, three classes","macro recall 0.40","No non-linear signal hiding in the category"],
+      ["Logistic regression","category, WCAG, polarity score; SMOTE; tuned threshold","98% accuracy","Label leakage: the label is computed from the polarity score. Excluded",1],
+      ["Random forest","same features, regularized","100% accuracy","Same leakage. Excluded",1],
+      ["Decision tree","category and WCAG; SMOTE","accuracy 0.43","Poor classifier, but its first splits, flexibility and then recognition versus recall, are worth reading"],
+      ["PCA and k-means","category and polarity, unlabeled","k = 3 by silhouette score","One clean cluster, UI elements: an encoding artifact"]]},
+    {h:"What I learned from the reviews"},
+    {p:"The reviews were still useful. They showed where accessibility complaints were concentrated and helped me decide which interaction problems deserved attention."},
+    {p:"But they couldn\u2019t reliably tell me how much an issue affected a particular person."},
+    {p:"So the analysis shaped the product in two ways: it showed which tasks to build, and it ruled out predicting needs from what people write."},
+    {p:"Instead of trying to infer someone\u2019s needs from what they wrote, I started thinking about what I could learn from watching how they interacted with an interface."},
+    {h:"Designing AccessTune"},
+    {p:"AccessTune is a behavioral accessibility calibrator. Rather than asking users to choose from a long list of settings, it gives them a series of short interaction tasks and measures how they perform."},
+    {p:"I translated seven accessibility categories from the research into tasks that could reveal different types of friction."},
+    {tbl:{head:["Task","What it measures"],rows:[["UI elements","Motor precision and target selection"],["Perceptibility","Visual contrast"],["Cognition","Recognition versus recall"],
+      ["Efficiency","Shortcuts and interaction speed"],["Control","Undo and error recovery"],["Tangible interaction","Feedback and confidence"],["Video","Sensory adaptation"]]}},
+    {p:"One example is the recognition-versus-recall task."},
+    {p:"The user first selects icons without text labels, then completes a comparable task with labels. AccessTune compares their speed and accuracy."},
+    {p:"If someone consistently performs better with labels, that suggests the interface should make those labels visible rather than relying on icons alone."},
+    {p:"The same idea applies to motor precision. Someone who repeatedly misses a small target may benefit from larger controls. Someone who can select it comfortably may not need that adjustment."},
+    {p:"At the end, AccessTune recommends a set of adjustments, and the person can turn each one on or off."},
+    {video:"at_demo", poster:"at_demo_poster", cap:"The live prototype, from the seven-task protocol through the adjustments it recommends and the interface changing with them. At the end, the same video with auto-captions off, then on."},
+    {p:"The goal isn\u2019t to give everyone the same accessibility settings. It\u2019s to understand where each person experiences friction and adapt accordingly."},
+    {p:"And that brings me back to the two reviews from the beginning."},
+    {p:"One person would simply prefer bigger buttons. The other struggles to use the scroll bar at all."},
+    {p:"AccessTune is designed to identify those differences through behavior, rather than treating both complaints as the same problem."},
+    {note:"<b>AccessTune is a concept prototype. The next step is testing whether those behavioral measurements actually lead to better settings than users would choose themselves.</b>"}
+  ]
+},
+{
+  id:"motion", num:"Side project", side:true, deck:true, palette:"ccs", title:"Connected Care in Motion",
+  head:"A 25-minute workshop from today's commute to 2050",
+  finding:"The signals pointed toward more personalization. Participants asked for spaces that adapt to everyone.",
+  tags:["Participatory design","Workshop facilitation","Design futures","Accessibility"],
+  thumb:"th_care",
+  rail:[["Team of three","Signal scanning<br>Scenario building<br>Workshop design and facilitation<br>Insight synthesis"],["Co-design session","Mood check-in<br>Experience stories<br>2027 to 2050 pathways<br>Future postcards"],["Horizon","2027 → 2050"]],
+  flow:[
+    {plate:"cc_s52", cap:"Overview"},
+    {plate:"cc_s53", cap:"Signals"},
+    {plate:"cc_s54", cap:"The framing question"},
+    {plate:"cc_s55", cap:"Preferred future"},
+    {plate:"cc_s56", cap:"Optimization trap"},
+    {plate:"cc_s57", cap:"Design workshop"},
+    {plate:"cc_s58", cap:"Workshop activities"},
+    {h:"The session, step by step"},
+    {p:"Twenty-five minutes, with participants of different mobility, wellbeing, and technology experience. The three of us took turns facilitating and taking notes. This is the session as we ran it on December 4."},
+    {steps:[
+      {t:"01 \u00b7 3 min", h:"Mood check-in", q:"Think of the last time you were on your way to class or the office. What did that moment feel like in your body?", p:"Everyone placed a mood sticker on a shared board, then the group clustered the stickers into a mind map."},
+      {t:"02 \u00b7 5 min", h:"Experience stories", p:"Everyone drew one card at random from each pile, one happy and one frustrated, and told the story behind each: what happened, how it felt, and what made it good or frustrating. Then the group shared.", piles:[
+        ["Happy experience",["A commute that made your day better.","A moment when you unexpectedly relaxed during a commute.","A time someone or something in public space made you feel cared for.","A moment when technology helped you feel calm or in control.","A commute when everything aligned perfectly."]],
+        ["Frustrated experience",["A commute that completely drained you.","A moment when transit or public space made things harder for you.","A time technology added stress or pressure.","A moment when you wished you could pause and breathe.","A time you felt unseen or unsupported during your commute."]]]},
+      {t:"03 \u00b7 7\u20138 min", h:"2027 to 2050 pathways", p:"Pairs picked one small change for 2027 and one big possibility for 2050, set them side by side, drew an arrow, and named the transition in three to five words. Anyone could write a new card if none fit. Each card had its name on the front and an explanation on the back. Tap or click one to turn it over.", piles:[
+        ["Small 2027 changes I\u2019d love",[["Micro-shelters","Small shaded or heated \u201ccalm pods\u201d at bus stops for moments when you need to breathe."],["Commute-buddy option","An opt-in app feature that matches you with a friend or classmate on the same route."],["Better bench design","Higher seats, backrests, and arm supports for people with limited mobility."],["Wayfinding for stressful spots","Calm, clearly marked walking paths through confusing buildings."],["Tooltip on demand","Hover over a symbol or icon for a second to get a simple explanation. No long tutorials, no forced tooltips."]]],
+        ["Big 2050 possibilities I\u2019d be excited about",[["Bio-connected transit vehicles","Vehicles that sense collective stress, not individual biometrics, and adjust lighting, vibration, and noise."],["Shared mobility libraries","Borrow mobility aids such as e-scooters and powered walkers like library books."],["Breathing roads","Roads made of living bio-material that filter the air as people move."],["Door-to-destination pods","Micro-pods arrive at your location and merge into larger traffic on highways."],["Geo-responsive buildings","Buildings that reshape themselves to real-time mobility demand, like a lecture hall that opens extra exits after class."]]]]},
+      {t:"04 \u00b7 4\u20135 min", h:"Future postcards", p:"Everyone wrote or drew a postcard from their 2050 commute: the space, the people, how it feels. Each person then read out one sentence about what the commute does to them emotionally."}
+    ]},
+    {h:"Run once, then redesigned"},
+    {p:"We ran a first version on November 20 and changed it from that session\u2019s feedback."},
+    {compare:[["November 20","<ul><li>Participants switched between working alone, in pairs, and as a group</li><li>Mood stickers went on a board without clustering</li></ul>"],["December 4","<ul><li>Each activity moved from individual work to the group</li><li>More prepared cards to choose from, so nobody had to invent ideas on the spot</li><li>Moods clustered into a mind map, with arrows linking moods, stories, 2027 changes, and 2050 possibilities</li></ul>"]]},
+    {plate:"cc_s59", cap:"Insights"},
+    {plate:"cc_s60", cap:"Revised point of view"},
+    {note:"This is speculative work. What it produced is a direction for adaptive mobility, not a tested design."}
+  ]
+},
+{
+  id:"roomsense", num:"Side project", side:true, deck:true, title:"RoomSense",
+  head:"Knowing what a room is good for before the walk across campus",
+  finding:"The same common room can suit studying, a group discussion, or meeting people, and you only find out which when you get there. RoomSense listens, never watches, and tells students what a room suits right now.",
+  tags:["Physical computing","Privacy by design","Mobile UX"],
+  thumb:"th_roomsense",
+  rail:[["Solo project","Concept, hardware build, sound analysis, scoring logic, GPT-4o-mini descriptions, mobile web dashboard"]],
+  flow:[
+    {p:"A common room can be right for studying, for a group discussion, or for meeting people, and the same room can be all three in one day. You only find out which when you get there: ten minutes across campus to a room too loud to study in, or too silent to talk in."},
+    {p:"Shared spaces give no signal before you arrive. The obvious fix, a camera, records faces, is heavy to run all day, and keeps no history of how the room usually behaves."},
+    {h:"Listening instead of watching"},
+    {compare:[["Camera","<ul><li>Records identifiable faces</li><li>Compute heavy to run continuously</li><li>No historical pattern data</li></ul>"],["RoomSense","<ul><li>Zero personal data stored, only sound and light readings</li><li>Runs on a $35 Raspberry Pi</li><li>Builds a weekly pattern from its own history</li></ul>"]]},
+    {p:"The device is a Raspberry Pi 4 with a USB microphone and a BH1750 light sensor wired over I\u00b2C, in a case I 3D-printed from an existing design with small changes of my own. A system service starts the dashboard on every boot, so it runs without anyone touching it."},
+    {chart:"rs_hw", cap:"The Pi, the light sensor on its breadboard, and the case"},
+    {h:"How it reads the room"},
+    {p:"Every 30 seconds the Pi listens for three seconds, reduces the audio to three numbers, and throws the audio away: how loud the room is, how much that loudness jumps around, and how much of the time someone is speaking, which webrtcvad detects frame by frame. Only the numbers are stored."},
+    {p:"The numbers drive two things. Three scores from 0 to 100 show how well the room suits focus, casual use, and socializing, because a loud room is the wrong answer for one student and the right one for another. The label itself comes from a few plain rules: Quiet needs low, steady sound; Busy needs loud sound, sustained speech in a loud room, or sound that jumps around a lot; anything else is Moderate. Light stays out of the label on purpose. Whether a room is too bright or too dim depends on what you are doing there, reading a book or working on a laptop, so the dashboard shows the light level and the description mentions it, and the student decides."},
+    {p:"Each reading goes into a SQLite log, which builds the weekly heatmap. GPT-4o-mini turns the numbers and the time of day into one plain-English sentence about what the room suits right now. It only ever sees the numbers."},
+    {chart:"rs_arch", cap:"System architecture, all of it running on the Pi"},
+    {h:"Checking before the walk"},
+    {p:"Students look for a place to go on their phones, rarely on a laptop, so the phone view is the one that matters. The Pi serves the dashboard on the local network: a student opens the Pi\u2019s IP address in the browser and sees the room state, its three scores, and one plain sentence about what the room suits right now."},
+    {chart:"rs_devices", cap:"The same dashboard on a laptop and on a phone. The laptop shows the Pi running in my room for most of a week, Quiet around the clock."},
+    {aside:{img:"rs_week", cap:"A Tuesday out on campus", body:[
+      "Further down, the weekly pattern shows when the room is usually quiet, so the decision can be go now, come back later, or plan for a better time.",
+      "On this Tuesday it read Quiet through the late morning and Moderate from early afternoon. After a few weeks in one room, a pattern like this is what would let a student plan ahead."]}},
+    {note:"So far RoomSense has run in my room and around campus, not in a real common room. The decibel values also come straight from an uncalibrated USB microphone, so the thresholds would need tuning there before the weekly pattern could tell students anything."}
+  ]
+}
+];
+
+/* side projects without their own page */
+var SIDE = [];
+
+/* archived, not shown: Financial Literacy (UX research). Move back into P to restore. */
+var ARCHIVE = [
+{
+  id:"literacy", num:"Side project", side:true, title:"Towards Better Financial Literacy",
+  head:"Four findings that turned out to be one",
+  finding:"Every separate thing people asked for was the same request: control.",
+  tags:["UX research","Interviews","Synthesis"],
+  thumb:"th_fin",
+  rail:[["Role","Study plan, screener and guide,<br>4 of 11 moderated sessions,<br>first-round analysis on 6,<br>affinity diagram, concept map"],["Sample","16 adults<br>11 moderated<br>5 unmoderated"],["Synthesis","~200 observations<br>7 clusters<br>3 rounds"]],
+  flow:[
+    {p:"Interactive learning is assumed to be better for complex financial topics, and the technology to build it keeps getting cheaper. What nobody had established is whether interactivity drives engagement only in the short term, or whether it can support a change in financial behaviour that lasts."},
+    {img:"fin_1_context", cap:"Problem space, purpose, and research questions"},
+    {h:"Who we talked to"},
+    {p:"Sixteen adults, recruited across three axes at once: life stage from student to retired professional, financial confidence from beginner to advanced, and learning and accessibility pattern. Eleven moderated interviews and five unmoderated sessions."},
+    {img:"fin_2_users", cap:"Recruitment across life stage, confidence, and accessibility pattern, and the affinity diagram"},
+    {h:"Four findings"},
+    {p:"<b>Text before video.</b> People read first, because reading lets them move at their own speed and cover everything. Video comes in afterwards, as clarification when something gets long or complicated, not as the primary format."},
+    {p:"<b>Light structure.</b> They want clear organisation across navigation and content, and reject rigid pathways. Topic labels, progress cues, and predictable layouts reduce effort. Prescribed sequences do not."},
+    {p:"<b>Trust and relevance.</b> Motivation tracks credibility and connection to a real decision. Generic content breaks engagement regardless of production quality."},
+    {p:"<b>Validation and accountability.</b> Quizzes and tasks are wanted as authoritative feedback, a way to confirm understanding rather than guess at it, and social accountability keeps people coming back."},
+    {img:"fin_3_insights", cap:"The four insights as they came out of synthesis"},
+    {h:"Then they collapsed"},
+    {p:"Read together, none of those is a separate preference. Pace, depth, progress, feedback, social, attention: each one is a request to decide for yourself how the thing goes."},
+    {img:"fin_4_meta", cap:"Control as the driver, the jobs-to-be-done statement, and the concept map"},
+    {note:"<b>That changed the question.</b> Not <i>how much interactivity</i>, which was where the project started, but <i>who is holding the controls</i>. Interactivity for validation, not for distraction. Structure as soft guidance rather than a path. Text-first as the system default."},
+    {img:"fin_5_opp", cap:"Opportunity areas, the reframed design challenge, and the stated limitation"},
+    {note:"<b>Limitation, stated rather than buried:</b> interviews give you drivers, not thresholds. We learned that control matters. We did not learn how structured something can get before helpful reads as rigid, or how many playful elements land before they read as noise. Those are usability questions, and self-reported need for captions, quizzes, and social features has to be checked against observed behaviour."}
+  ]
+}
+];
+
+/* drawn covers for projects with no imagery of their own */
+var COVER = {
+  /* a tally of five: the same details typed again, and the counting that found it */
+  funeral:'<svg class="cover" viewBox="0 0 600 380" aria-hidden="true">'+
+    '<text x="48" y="70" class="cv-k">DEATHCARE \u00b7 AI AUTOMATION</text>'+
+    '<text x="48" y="168" class="cv-h">Collected once.</text>'+
+    '<text x="48" y="218" class="cv-h cv-em">Typed five times.</text>'+
+    '<g class="cv-tally"><path d="M418 118 L414 252"/><path d="M450 114 L447 250"/><path d="M482 117 L479 253"/>'+
+    '<path d="M514 115 L512 251"/><path d="M392 236 L540 132"/></g>'+
+    '<text x="48" y="326" class="cv-k cv-s">STATE SYSTEM \u00b7 OBITUARY \u00b7 INSURANCE \u00b7 CASE FILE \u00b7 ACCOUNTING</text></svg>'
+};
+
+/* ============ render ============ */
+var app=document.getElementById('app');
+var FIRST=true;
+
+function img(key,cap){
+  var src=A[key];
+  if(!src) return '<figure><div class="shot ph" style="aspect-ratio:16/7;border:1px solid var(--rule)">'+key+'</div>'+(cap?'<figcaption>'+cap+'</figcaption>':'')+'</figure>';
+  return '<figure><img src="'+src+'" alt="'+(cap||'')+'" loading="lazy">'+(cap?'<figcaption>'+cap+'</figcaption>':'')+'</figure>';
+}
+
+var GLYPH={mu:{w:'M63 446Q81 446 124 428Q138 421 140.5 416.0Q143 411 144 389Q144 359 140 341Q131 307 131.0 238.0Q131 169 140 169Q150 169 231 237Q295 292 301 289Q305 288 281.0 251.5Q257 215 226.5 175.0Q196 135 182 125Q155 103 133 54Q123 30 107.5 17.0Q92 4 81 9Q64 19 41.0 47.0Q18 75 18 86Q18 89 29.0 99.5Q40 110 54 107Q70 103 82.0 116.5Q94 130 99 153Q109 207 99 230Q95 243 86.0 295.5Q77 348 63.0 378.0Q49 408 49 428Q49 440 51.0 443.0Q53 446 63 446ZM131 645Q140 634 171 617Q197 604 218.0 585.0Q239 566 239 557Q239 548 227 537Q218 529 208.5 526.5Q199 524 165 524Q116 524 103 520L96 519L98 520Q115 529 88 530Q80 530 68 530Q38 530 30.0 536.5Q22 543 26 565Q29 585 45.0 597.5Q61 610 74.0 622.5Q87 635 101 646Q116 657 120.0 656.5Q124 656 131 645Z',i:'M752 230Q781 222 797.0 218.0Q813 214 848 200L896 179Q910 173 912.5 164.0Q915 155 932.5 144.5Q950 134 954.5 122.5Q959 111 971 92Q990 64 977 64Q970 64 970 58Q970 54 962.5 53.5Q955 53 943.5 56.5Q932 60 921 65Q904 76 861.5 110.5Q819 145 801 165Q787 180 757 195Q708 221 708 235Q708 237 710.0 238.5Q712 240 717.0 239.5Q722 239 730.5 237.0Q739 235 752 230ZM584 684Q605 673 609.5 673.0Q614 673 640.0 650.5Q666 628 674.5 604.0Q683 580 683 529V475L715 480Q753 482 802.0 481.5Q851 481 873 477Q899 471 910 459L921 447L908 439Q899 433 888.5 434.0Q878 435 836 446Q794 456 779.0 458.0Q764 460 743 456Q710 450 699.5 445.0Q689 440 686 426Q683 411 672.0 400.5Q661 390 660.0 376.5Q659 363 654 333Q645 293 638 233Q633 190 631 186Q627 180 619.5 103.0Q612 26 612 -17Q610 -64 605.0 -78.5Q600 -93 586 -93Q577 -93 552.5 -67.0Q528 -41 516 -22Q509 -8 502.0 21.0Q495 50 500 53Q501 55 518.0 39.0Q535 23 541.0 23.0Q547 23 559.5 14.5Q572 6 575.0 9.0Q578 12 583.0 99.5Q588 187 592.0 217.0Q596 247 596 272V298L586 282Q575 268 555.0 245.0Q535 222 514 193Q480 139 427.0 96.5Q374 54 355 64Q346 69 346.0 77.5Q346 86 357.0 96.5Q368 107 386 117Q406 127 449.5 172.5Q493 218 509 246Q528 278 539.0 292.5Q550 307 567 337L596 384Q607 404 607 418Q607 429 604.5 430.5Q602 432 591 431Q574 428 552.0 417.5Q530 407 491.5 399.0Q453 391 433.5 386.5Q414 382 361 377Q322 376 311.5 377.5Q301 379 280 390Q234 415 250 426Q259 432 353 442Q409 447 446 452L544 464Q605 471 609 478Q612 482 609.5 504.0Q607 526 602 544Q599 559 595.5 578.0Q592 597 574 624Q561 642 554.0 664.5Q547 687 551 691Q557 697 584 684Z'},fei:{w:'M186 555Q188 544 194.0 533.5Q200 523 193 505Q187 491 187.5 469.0Q188 447 195 443Q201 440 197 422Q193 395 190 394Q187 393 183 400Q183 401 181 402Q174 416 169 411Q162 405 158.5 407.0Q155 409 148 423Q138 440 124 446Q113 450 111.5 453.5Q110 457 113 470Q121 514 142 530Q156 538 169 552Q179 562 181.0 562.0Q183 562 186 555ZM872 675Q887 661 888.5 653.0Q890 645 877 632L835 587Q818 570 805.5 568.0Q793 566 778 579L764 590L779 619Q795 649 795 653Q795 654 792.0 654.0Q789 654 782.5 654.0Q776 654 767.0 653.0Q758 652 746 650Q730 647 714.0 625.0Q698 603 684 597Q671 590 654.5 560.0Q638 530 638 514Q638 488 674 479Q687 475 703.5 450.5Q720 426 715 421Q706 412 656.5 434.0Q607 456 596 474Q589 484 590.5 522.5Q592 561 600 580Q608 598 608 601Q606 603 596.5 602.0Q587 601 574.5 597.5Q562 594 557 591Q547 587 547.0 578.0Q547 569 538 551Q526 528 519.5 464.5Q513 401 520 365Q524 341 518.0 341.0Q512 341 512.0 348.5Q512 356 501 363Q485 373 480.0 393.5Q475 414 474 472Q473 548 467.0 553.5Q461 559 433 552L404 544L396 505Q380 429 397 428Q403 428 414 433Q432 442 433 442Q436 440 434.5 431.5Q433 423 429.0 410.5Q425 398 421 387Q405 353 390 376Q384 384 362 400L340 415V457Q341 499 334 527Q330 548 326.5 552.0Q323 556 305 559Q282 565 278 568L285 573Q291 576 300 580Q326 589 326 594Q326 601 342.5 603.0Q359 605 372 600Q380 596 406.5 595.0Q433 594 456 600Q467 603 469.0 606.5Q471 610 471 626Q471 649 463 656Q456 661 466 661Q468 661 475 660Q492 660 500.0 656.5Q508 653 527 636L545 622L583 631Q608 638 614.0 641.5Q620 645 620 652Q620 659 622.0 661.0Q624 663 628 661Q636 659 644.5 665.0Q653 671 677.5 665.0Q702 659 738.0 666.0Q774 673 783.0 677.5Q792 682 809 688Q834 694 846.0 691.5Q858 689 872 675ZM572 765Q572 758 582 750Q603 726 603 722Q603 716 580.0 705.5Q557 695 538 694Q509 689 475 682Q450 678 441.5 679.5Q433 681 415 689Q389 702 370.5 705.5Q352 709 342 716Q335 720 336.0 723.0Q337 726 342 733Q352 744 377.5 744.0Q403 744 454.0 756.0Q505 768 517 769Q537 772 554.5 770.5Q572 769 572 765Z',i:'M418 311Q417 303 431.5 297.5Q446 292 451.0 280.0Q456 268 467 258Q477 250 477.0 238.5Q477 227 467.0 221.0Q457 215 453.5 162.5Q450 110 453.5 104.5Q457 99 471 108Q491 122 492.5 117.5Q494 113 475 94L452 71L457 33Q471 -86 480 -104Q484 -114 476.0 -112.0Q468 -110 452 -96Q428 -78 420.0 -62.0Q412 -46 414 -19Q417 19 408.5 21.0Q400 23 377 -11Q362 -34 344 -48L327 -62L295 -54Q261 -46 250.5 -41.5Q240 -37 240 -30Q240 -23 260.5 -19.5Q281 -16 309 3L373 47Q397 62 402.0 67.5Q407 73 405 85Q404 96 402.0 98.5Q400 101 391 100Q306 90 272 100Q256 106 251.5 109.5Q247 113 247 124V138Q249 138 253 132Q258 124 266.0 124.5Q274 125 312 134Q363 146 380 148Q390 149 393.5 152.5Q397 156 398 167Q404 194 397.0 199.5Q390 205 348 206Q271 209 271 225Q271 227 267 239Q265 246 268.5 248.0Q272 250 292 248Q319 248 341.0 256.5Q363 265 379 265Q394 265 400.5 272.0Q407 279 407 295Q407 314 410 317Q414 321 416.5 319.5Q419 318 418 311ZM600 356Q638 334 638 307Q638 300 640.5 300.0Q643 300 684 330Q719 356 740.0 361.5Q761 367 783 355Q803 344 806.5 339.0Q810 334 807 321Q804 311 801.5 308.5Q799 306 790 306Q776 307 756.0 301.0Q736 295 717.0 292.5Q698 290 685 283Q659 269 636 264Q628 261 627.5 233.0Q627 205 627 198Q625 194 634.0 192.5Q643 191 658.5 194.0Q674 197 694 202Q732 212 760.5 205.0Q789 198 789 178Q789 170 752.5 166.5Q716 163 671 163Q639 162 633.5 160.5Q628 159 628 149Q627 136 624 108L620 79L638 82Q655 85 690.5 92.0Q726 99 767 100Q796 101 802.5 99.0Q809 97 814 86Q827 65 827.0 57.5Q827 50 816 43Q806 38 798.0 38.0Q790 38 767 44Q732 54 685.5 59.0Q639 64 628.5 68.5Q618 73 615.5 73.0Q613 73 613.0 48.5Q613 24 615.0 -4.5Q617 -33 621 -44Q628 -69 625 -78Q624 -85 623.0 -120.0Q622 -155 624 -163Q625 -170 622 -172Q614 -173 607.5 -157.5Q601 -142 592.0 -137.0Q583 -132 573 -113Q565 -97 556.0 -64.5Q547 -32 550 -29Q551 -26 562.0 -37.0Q573 -48 578 -43Q590 -20 583 96Q578 167 575.0 237.0Q572 307 562.0 327.5Q552 348 555 359Q558 370 567.0 369.5Q576 369 600 356Z'}};
+function mark(first){
+  return '<span class="cn'+(first?' first':'')+'" aria-hidden="true">'+
+    ['mu','fei'].map(function(k,n){ var g=GLYPH[k];
+      return '<span class="gl">'+
+        '<svg viewBox="0 0 1000 1000" aria-hidden="true"><g transform="translate(0,820) scale(1,-1)">'+
+          '<path d="'+g.i+'"/></g></svg>'+
+        '<svg class="g-wet" viewBox="0 0 1000 1000" aria-hidden="true" style="--i:'+n+'">'+
+          '<g transform="translate(0,820) scale(1,-1)"><path d="'+g.w+'"/></g></svg>'+
+      '</span>';
+    }).join('')+'</span>';
+}
+
+function home(){
+  var F=FIRST, o=F?.35:0;
+  function frame(p,i){
+    var t=A[p.thumb];
+    return '<a class="work rv" style="--d:'+(.38+(F?.9:0)+i*.07).toFixed(3)+'s" href="/'+p.id+'">'+
+      '<div class="work-shot'+(t||p.cover?'':' ph')+'">'+
+        (p.cover?COVER[p.cover]:t?'<img src="'+t+'" alt="'+p.title+'" loading="lazy">':p.thumb)+'</div>'+
+      '<div class="work-b">'+
+        '<p class="work-n">'+p.num+'</p>'+
+        '<h3 class="work-t">'+p.title+'</h3>'+
+        '<p class="work-f">'+p.finding+'</p>'+
+        '<span class="work-m">'+p.tags.join(' &middot; ')+'</span>'+
+      '</div></a>';
+  }
+  /* side projects: one line each, no case study needed */
+  function side(p,i){
+    var t=A[p.thumb], inner='<div class="sc-shot">'+(t?'<img src="'+t+'" alt="'+p.title+'" loading="lazy">':'')+'</div>'+
+      '<div class="sc-b"><h3>'+p.title+'</h3><p>'+(p.line||p.finding)+'</p><span>'+p.tags.join(' &middot; ')+'</span></div>';
+    var st=' rv" style="--d:'+(.52+(F?.9:0)+i*.06).toFixed(3)+'s"';
+    return p.id ? '<a class="sc'+st+' href="/'+p.id+'">'+inner+'</a>' : '<div class="sc'+st+'>'+inner+'</div>';
+  }
+  var main=P.filter(function(p){return !p.side}), extra=P.filter(function(p){return p.side}).concat(SIDE);
+
+  return '<div class="wrap">'+
+    '<section class="intro">'+
+      '<p class="intro-lab rv" style="--d:.08s">Computer science &middot; healthcare &middot; product research &amp; design</p>'+
+      '<p class="intro-line rv" style="--d:.18s">Every project here starts with a brief and ends somewhere else.</p>'+
+    '</section>'+
+    '<p class="gauge drip rv" style="--d:'+(F?1.15:.3)+'s">Selected work<span class="ct">'+main.length+' projects</span></p>'+
+    '<div class="works">'+main.map(frame).join('')+'</div>'+
+    '<p class="gauge rv" style="--d:'+(F?1.15:.3)+'s">Side projects</p>'+
+    '<div class="side">'+extra.map(side).join('')+'</div>'+
+    '<section class="coda">'+
+      '<p class="coda-t">A complaint tells you something is wrong. It rarely tells you where. So I build something that measures it.</p>'+
+    '</section></div>';
+}
+
+/* Deck projects keep the original pages whole: each page runs wide as a plate,
+   and opens full-size on click. */
+
+/* Connected Care slides: one white card per deck slide, text set live */
+var CCM={
+  rings:'<svg class="cc-motif rings" viewBox="0 0 600 600" aria-hidden="true" fill="none" stroke="#e2e2e2" stroke-width="1.4"><circle cx="300" cy="300" r="290"/><circle cx="300" cy="300" r="245"/><circle cx="300" cy="300" r="200"/><circle cx="300" cy="300" r="155"/><circle cx="300" cy="300" r="110"/><circle cx="74" cy="150" r="9" fill="#111" stroke="none"/><circle cx="520" cy="430" r="6" fill="#111" stroke="none"/></svg>',
+  rings2:'<svg class="cc-motif rings2" viewBox="0 0 600 600" aria-hidden="true" fill="none" stroke="#e2e2e2" stroke-width="1.4"><circle cx="300" cy="300" r="290"/><circle cx="300" cy="300" r="240"/><circle cx="300" cy="300" r="190"/><circle cx="300" cy="300" r="140"/><circle cx="140" cy="96" r="9" fill="#111" stroke="none"/></svg>',
+  dash:'<svg class="cc-motif dash" viewBox="0 0 470 560" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><path d="M150 40 C 420 70, 470 300, 300 330 S 120 470, 330 560" fill="none" stroke="#111" stroke-width="3" stroke-dasharray="14 12"/><path d="M110 0 a90 90 0 0 0 180 0z" fill="#111"/><circle cx="330" cy="300" r="62" fill="#111"/><circle cx="250" cy="560" r="80" fill="none" stroke="#111" stroke-width="3"/></svg>'
+};
+function ccSlide(c){
+  var media='';
+  if(c.imgs) media='<div class="cc-m '+(c.grid||'stack')+'">'+c.imgs.map(function(k){
+    return c.zoom?'<img src="'+A[k]+'" data-full="'+(A[k+'_full']||A[k])+'" alt="'+c.alt+'" loading="lazy" tabindex="0" role="button" aria-label="Open full size: '+c.alt+'">'
+                 :'<img src="'+A[k]+'" alt="'+(c.alt||'')+'" loading="lazy">'}).join('')+(c.cap?'<figcaption>'+c.cap+'</figcaption>':'')+'</div>';
+  var txt=c.q?'<p class="cc-q">'+c.q+'</p>':(c.t?'<h3>'+c.t+'</h3>':'')+(c.list?'<ul class="cc-list">'+c.list.map(function(x){return '<li><b>'+x[0]+'</b>'+x[1]+'</li>'}).join('')+'</ul>':'')+(c.body||[]).map(function(x){return '<p>'+x+'</p>'}).join('');
+  var cls='cc'+(c.layout?' '+c.layout:media?'':' solo')+(c.q?' q':'');
+  var inner=c.below?'<div class="cc-t">'+txt+'</div>'+media:(c.mediaFirst?media+'<div class="cc-t">'+txt+'</div>':'<div class="cc-t">'+txt+'</div>'+media);
+  return '<section class="'+cls+'">'+(c.motif?CCM[c.motif]:'')+inner+'</section>';
+}
+function deck(p,i){
+  var out='', run='';
+  function flush(){ if(run){ out+='<div class="wrap"><div class="flow dflow">'+run+'</div></div>'; run=''; } }
+  function zoom(key,cap){
+    var src=A[key], full=A[key+'_full']||src;
+    return '<img src="'+src+'" data-full="'+full+'" alt="'+(cap||'')+'" loading="lazy" tabindex="0" role="button" aria-label="Open full size: '+(cap||'')+'">';
+  }
+  p.flow.forEach(function(b){
+    if(b.video){ flush();
+      out+='<figure class="plate vid"><div class="vbox"><video src="'+A[b.video]+'" poster="'+A[b.poster]+'" muted playsinline preload="metadata" aria-label="'+b.cap+'"></video>'+
+        '<button type="button" class="vplay" aria-label="Play the 42-second prototype demo"><span aria-hidden="true">&#9654;</span><b>Play the demo</b></button></div>'+
+        '<figcaption>'+b.cap+'</figcaption></figure>'; }
+    else if(b.still){ flush(); out+='<figure class="plate"><img src="'+A[b.still]+'" alt="'+b.cap+'" loading="lazy"><figcaption>'+b.cap+'</figcaption></figure>'; }
+    else if(b.plate){ flush(); out+='<figure class="plate'+(b.cls?' '+b.cls:'')+'"><span class="pz">'+zoom(b.plate,b.cap)+'</span><figcaption>'+b.cap+'</figcaption></figure>'; }
+    else if(b.cc){ flush(); out+=ccSlide(b.cc); }
+    else if(b.ccend){ flush(); out+='<section class="cc solo end"><div class="cc-t"><p class="cc-end">'+b.ccend+'</p></div></section>'; }
+    else if(b.h) run+='<h4>'+b.h+'</h4>';
+    else if(b.note) run+='<div class="note">'+b.note+'</div>';
+    else if(b.stats) run+='<div class="stats">'+b.stats.map(function(x){return '<div><b>'+x[0]+'</b><span>'+x[1]+'</span></div>'}).join('')+'</div>';
+    else if(b.fan) run+='<div class="fan"><p class="fan-k">Collected once</p><p class="fan-src">'+b.fan.src+'</p>'+
+      '<p class="fan-k fan-arrow">&darr; re-typed by hand, every time</p><p class="fan-to">'+b.fan.to.join(' &middot; ')+'</p></div>';
+    else if(b.quote) run+='<blockquote class="pq">\u201c'+b.quote+'\u201d<cite>'+b.by+'</cite></blockquote>';
+    else if(b.compare) run+='<div class="compare">'+b.compare.map(function(x){return '<div><b>'+x[0]+'</b>'+x[1]+'</div>'}).join('')+'</div>';
+    else if(b.bars) run+='<figure class="bars"><div class="bars-key"><span><i class="ka"></i>'+b.bars.a+'</span><span><i class="kb"></i>'+b.bars.b+'</span></div>'+
+      b.bars.rows.map(function(r){return '<div class="br"><span class="bl">'+r[0]+'</span><div class="bt">'+
+        '<div><i class="ba" style="width:'+(r[1]/50*100)+'%"></i><b>'+Math.round(r[1])+'%</b></div>'+
+        '<div><i class="bb" style="width:'+(r[2]/50*100)+'%"></i><b>'+Math.round(r[2])+'%</b></div></div></div>'}).join('')+
+      '<figcaption>'+b.bars.note+'</figcaption></figure>';
+    else if(b.chart) run+='<figure class="chart"><img src="'+A[b.chart]+'" data-full="'+A[b.chart]+'" alt="'+b.cap+'" loading="lazy" tabindex="0" role="button" aria-label="Open full size: '+b.cap+'"><figcaption>'+b.cap+'</figcaption></figure>';
+    else if(b.tbl) run+='<div class="mlog'+(b.tbl.head.length==2?' two':'')+'"><div class="mlog-h">'+b.tbl.head.map(function(x){return '<span>'+x+'</span>'}).join('')+'</div>'+
+      b.tbl.rows.map(function(r){return '<div class="mlog-r"><span><b>'+r[0]+'</b></span>'+r.slice(1).map(function(c){return '<span>'+c+'</span>'}).join('')+'</div>'}).join('')+'</div>';
+    else if(b.log) run+='<div class="mlog"><div class="mlog-h"><span>Model</span><span>Result</span><span>What it told me</span></div>'+
+      b.log.map(function(r){return '<div class="mlog-r'+(r[4]?' leak':'')+'"><span><b>'+r[0]+'</b><i>'+r[1]+'</i></span><span>'+r[2]+(r[4]?' <em>leak</em>':'')+'</span><span>'+r[3]+'</span></div>'}).join('')+'</div>';
+    else if(b.shot) run+='<figure class="shot"><img src="'+A[b.shot]+'" alt="'+b.cap+'" loading="lazy"><figcaption>'+b.cap+'</figcaption></figure>';
+    else if(b.steps) run+='<div class="steps">'+b.steps.map(function(x){return '<div class="step"><span class="step-t">'+x.t+'</span><div><h5>'+x.h+'</h5>'+
+      (x.q?'<p class="prompt">\u201c'+x.q+'\u201d</p>':'')+'<p>'+x.p+'</p>'+
+      (x.piles?'<div class="piles">'+x.piles.map(function(pl){return '<div class="pile"><b>'+pl[0]+'</b><ul>'+pl[1].map(function(c){return Array.isArray(c)?'<li class="fl"><button type="button" class="flip" aria-pressed="false" aria-label="'+c[0]+'. Show the back of the card"><span class="ff">'+c[0]+'<i aria-hidden="true">\u21bb</i></span><span class="fb">'+c[1]+'</span></button></li>':'<li>'+c+'</li>'}).join('')+'</ul></div>'}).join('')+'</div>':'')+
+      '</div></div>'}).join('')+'</div>';
+    else if(b.aside) run+='<div class="aside"><figure><img src="'+A[b.aside.img]+'" data-full="'+A[b.aside.img]+'" alt="'+b.aside.cap+'" loading="lazy" tabindex="0" role="button" aria-label="Open full size: '+b.aside.cap+'"><figcaption>'+b.aside.cap+'</figcaption></figure><div>'+b.aside.body.map(function(x){return '<p>'+x+'</p>'}).join('')+'</div></div>';
+    else if(b.truths) run+='<div class="truths">'+b.truths.map(function(x){return '<div><b>'+x[0]+'</b><span>'+x[1]+'</span></div>'}).join('')+'</div>';
+    else run+='<p>'+b.p+'</p>';
+  });
+  flush();
+  var meta=p.rail.map(function(r){return '<div><b>'+r[0]+'</b><span>'+r[1]+'</span></div>'}).join('');
+  var nx=P[(i+1)%P.length];
+  return '<div class="wrap"><div class="ph-head">'+
+      '<a class="back" href="/">← All work</a>'+
+      '<p class="gauge">'+p.num+' &nbsp;'+p.title+'</p>'+
+      '<h2 class="pt">'+p.head+'</h2>'+
+      '<p class="finding">'+p.finding+'</p></div>'+
+      '<div class="dmeta'+(p.rail.length>1?' cols':'')+'">'+meta+'</div></div>'+
+    '<div class="deck'+(p.palette?' pal-'+p.palette:'')+'">'+(p.palette=='cc'?'<div class="cc-outer"><div class="cc-sheet">'+out+'</div></div>':out)+'</div>'+
+    '<div class="wrap"><div class="next"><p class="gauge">Next</p><a href="/'+nx.id+'">'+nx.head+' →</a></div></div>';
+}
+
+function project(p,i){
+  if(p.deck) return deck(p,i);
+  var body=p.flow.map(function(b){
+    if(b.img) return img(b.img,b.cap);
+    if(b.zoom) return '<figure><img src="'+A[b.zoom]+'" data-full="'+(A[b.zoom+'_full']||A[b.zoom])+'" alt="'+b.cap+'" loading="lazy" tabindex="0" role="button" aria-label="Open full size: '+b.cap+'" style="cursor:zoom-in"><figcaption>'+b.cap+'</figcaption></figure>';
+    if(b.h) return '<h4>'+b.h+'</h4>';
+    if(b.note) return '<div class="note">'+b.note+'</div>';
+    return '<p>'+b.p+'</p>';
+  }).join('');
+  var rail=p.rail.map(function(r){return '<b>'+r[0]+'</b><span class="tiny">'+r[1]+'</span>'}).join('');
+  var nx=P[(i+1)%P.length];
+  return '<div class="wrap"><div class="ph-head">'+
+      '<a class="back" href="/">← All work</a>'+
+      '<p class="gauge">'+p.num+' &nbsp;'+p.title+'</p>'+
+      '<h2 class="pt">'+p.head+'</h2>'+
+      '<p class="finding">'+p.finding+'</p></div>'+
+    '<div class="body"><aside class="rail">'+rail+'</aside><div class="flow">'+body+'</div></div>'+
+    '<div class="next"><p class="gauge">Next</p><a href="/'+nx.id+'">'+nx.head+' →</a></div></div>';
+}
+
+function about(){
+  return '<div class="wrap narrow"><div class="ph-head abt">'+
+    '<p class="gauge">About</p><h2 class="pt">A little about me</h2></div>'+
+    '<div style="padding:clamp(30px,5vw,54px) 0 clamp(60px,10vw,110px)">'+
+    '<p>I started out in computer science and began my career building databases and working with healthcare data. Later I moved into clinical informatics, where I worked with physicians and care teams on ICD and HCC coding, patient no-show and hospital admission metrics, and testing the software they used in their daily workflows.</p>'+
+    '<p>I liked being able to understand both sides of the work. I could get into the technical details, but I also had the chance to see what those details meant in practice. Sometimes a problem that looked straightforward in the data turned out to be much more complicated once I talked to the people involved.</p>'+
+    "<p>Since then I've worked on a range of projects, from researching unfamiliar industries to building and testing AI products. Funeral directors talked to me about time with families, not about paperwork. It took counting how often the same five fields came back to show how much of their day it was. Patients in a physical therapy project asked for fewer appointments and turned out to mean they wanted to feel capable. I like moving between research and engineering, and the most interesting part is usually the thing that changes how I understand the problem.</p>"+
+    "<p>Building those products is also what got me interested in how we evaluate AI and decide what responsibilities to give it. What evidence would make us comfortable relying on an AI system? When should it support someone's judgment, and when is it appropriate for it to decide on its own?</p>"+
+    "<p>These are questions I'd like to keep working on.</p>"+
+    '</div></div>';
+}
+
+var TITLE='Mufei Chen';
+function route(){ return location.pathname.replace(/^\/+|\/+$/g,''); }
+function titleFor(h){
+  if(h==='about') return 'About \u00b7 '+TITLE;
+  for(var k=0;k<P.length;k++) if(P[k].id===h) return P[k].head+' \u00b7 '+TITLE;
+  return TITLE;
+}
+function render(){
+  var h=route();
+  var view, nv='work', i=-1;
+  if(h==='about'){ view=about(); nv='about'; }
+  else {
+    P.forEach(function(p,k){ if(p.id===h) i=k; });
+    view = i>=0 ? project(P[i],i) : home();
+  }
+  app.innerHTML = view +
+    '<div class="wrap"><footer>Durham, North Carolina &middot; '+
+    '<a href="mailto:mufei.mailbox@gmail.com">mufei.mailbox@gmail.com</a></footer></div>';
+  document.querySelectorAll('nav a.nv').forEach(function(a){
+    a.classList.toggle('on', a.dataset.nv===nv);
+  });
+  document.title=titleFor(h);
+  FIRST=false;
+  hush(i<0 && nv==='work');
+  /* the rain belongs to the site, not to the reading surface */
+  if(window.WATER) WATER.show(i<0);
+  rainHero(i<0 && h!=='about');
+  window.scrollTo(0,0);
+}
+/* full-size viewer: continuous zoom.
+   Wheel or pinch zooms around the pointer, drag pans, +/−/0 and arrows from the keyboard.
+   Closes on ×, Esc, or a click on the empty backdrop. Optional: the page reads without it. */
+(function(){
+  var lb=null, im=null, back=null, s=1, x=0, y=0, fit=1, max=4, hint=null;
+  var pts={}, pinch=null, drag=null, moved=false, down=null;
+
+  function apply(){ im.style.transform='translate('+x+'px,'+y+'px) scale('+s+')'; }
+  /* a dimension smaller than the screen stays centred; a larger one can't leave a gap at its edge */
+  function clamp(){
+    var w=im.naturalWidth*s, h=im.naturalHeight*s, W=innerWidth, H=innerHeight;
+    x = w<=W ? (W-w)/2 : Math.min(0,Math.max(W-w,x));
+    y = h<=H ? (H-h)/2 : Math.min(0,Math.max(H-h,y));
+  }
+  function zoomAt(k,cx,cy){
+    var n=Math.min(max,Math.max(fit,s*k));
+    x=cx-(cx-x)*n/s; y=cy-(cy-y)*n/s; s=n; clamp(); apply();
+    if(hint){ hint.remove(); hint=null; }
+  }
+
+  function close(){
+    if(!lb) return;
+    lb.remove(); lb=null; im=null; pts={}; pinch=null; drag=null;
+    document.documentElement.style.overflow='';
+    if(back) back.focus({preventScroll:true});
+  }
+  function open(src,fx,fy){
+    back=src;
+    lb=document.createElement('div'); lb.className='lb';
+    lb.setAttribute('role','dialog'); lb.setAttribute('aria-label','Full-size image');
+    im=new Image(); im.alt=src.alt; im.draggable=false;
+    var btn=document.createElement('button'); btn.className='lb-x'; btn.type='button';
+    btn.setAttribute('aria-label','Close'); btn.innerHTML='&times;';
+    btn.addEventListener('click',close);
+    hint=document.createElement('p'); hint.className='lb-hint';
+    hint.textContent=matchMedia('(hover:none)').matches ? 'Pinch to zoom · drag to move' : 'Scroll to zoom · drag to move · Esc to close';
+    lb.appendChild(im); lb.appendChild(btn); lb.appendChild(hint);
+    document.body.appendChild(lb);
+    document.documentElement.style.overflow='hidden';
+    btn.focus({preventScroll:true});
+    function start(){
+      if(!lb) return;
+      fit=Math.min(innerWidth*.94/im.naturalWidth, innerHeight*.9/im.naturalHeight);
+      max=Math.max(fit*2,1.6);
+      /* open somewhat closer than the page showed it, centred on where the reader clicked */
+      s=Math.min(max,Math.max(fit,innerWidth*2/im.naturalWidth));
+      x=innerWidth/2-fx*im.naturalWidth*s; y=innerHeight/2-fy*im.naturalHeight*s;
+      clamp(); apply(); im.classList.add('on');
+    }
+    im.addEventListener('load',start); im.src=src.dataset.full;
+    if(im.complete&&im.naturalWidth) start();
+
+    lb.addEventListener('wheel',function(e){
+      e.preventDefault();
+      /* trackpad pinch arrives as ctrl+wheel with small deltas */
+      var d=e.deltaMode===1 ? e.deltaY*16 : e.deltaY;
+      zoomAt(Math.exp(-d*(e.ctrlKey?.01:.0018)), e.clientX, e.clientY);
+    },{passive:false});
+
+    lb.addEventListener('pointerdown',function(e){
+      if(e.target===btn) return;
+      if(!Object.keys(pts).length){ moved=false; down=e.target; }
+      pts[e.pointerId]={x:e.clientX,y:e.clientY};
+      lb.setPointerCapture(e.pointerId);
+      var ids=Object.keys(pts);
+      if(ids.length===2){
+        var a=pts[ids[0]], b=pts[ids[1]];
+        pinch={d:Math.hypot(a.x-b.x,a.y-b.y)}; drag=null;
+      } else if(ids.length===1){ drag={x:e.clientX-x, y:e.clientY-y}; lb.classList.add('grab'); }
+    });
+    lb.addEventListener('pointermove',function(e){
+      if(!pts[e.pointerId]) return;
+      pts[e.pointerId]={x:e.clientX,y:e.clientY};
+      var ids=Object.keys(pts);
+      if(pinch&&ids.length===2){
+        var a=pts[ids[0]], b=pts[ids[1]], d=Math.hypot(a.x-b.x,a.y-b.y);
+        zoomAt(d/pinch.d,(a.x+b.x)/2,(a.y+b.y)/2); pinch.d=d; moved=true;
+      } else if(drag){
+        var nx=e.clientX-drag.x, ny=e.clientY-drag.y;
+        if(Math.abs(nx-x)+Math.abs(ny-y)>2) moved=true;
+        x=nx; y=ny; clamp(); apply();
+      }
+    });
+    function up(e){
+      delete pts[e.pointerId];
+      var ids=Object.keys(pts);
+      if(ids.length<2) pinch=null;
+      if(ids.length===1){ var p=pts[ids[0]]; drag={x:p.x-x, y:p.y-y}; }
+      if(!ids.length){
+        drag=null; lb.classList.remove('grab');
+        /* pointer capture retargets the up event, so judge by where the press began */
+        if(!moved && e.type==='pointerup' && down===lb) close();
+      }
+    }
+    lb.addEventListener('pointerup',up);
+    lb.addEventListener('pointercancel',up);
+    lb.addEventListener('dblclick',function(e){
+      if(e.target===im) zoomAt(s<fit*1.5 ? 2.2 : fit/s, e.clientX, e.clientY);
+    });
+  }
+
+  document.addEventListener('click',function(e){
+    var fc=e.target.closest&&e.target.closest('.flip');
+    if(fc){ var on=fc.getAttribute('aria-pressed')!=='true'; fc.setAttribute('aria-pressed',on); fc.setAttribute('aria-label',fc.querySelector('.ff').textContent.replace('\u21bb','')+(on?'. Show the front of the card':'. Show the back of the card')); return; }
+    var t=e.target.closest&&e.target.closest('img[data-full]');
+    if(!t||lb) return;
+    var r=t.getBoundingClientRect();
+    open(t,(e.clientX-r.left)/r.width,(e.clientY-r.top)/r.height);
+  });
+  document.addEventListener('keydown',function(e){
+    if(!lb){
+      if((e.key==='Enter'||e.key===' ')&&e.target.matches&&e.target.matches('img[data-full]')){
+        e.preventDefault(); open(e.target,.5,.5);
+      }
+      return;
+    }
+    var cx=innerWidth/2, cy=innerHeight/2, step=80;
+    if(e.key==='Escape') close();
+    else if(e.key==='+'||e.key==='=') zoomAt(1.25,cx,cy);
+    else if(e.key==='-'||e.key==='_') zoomAt(.8,cx,cy);
+    else if(e.key==='0') zoomAt(fit/s,cx,cy);
+    else if(e.key.indexOf('Arrow')===0){
+      e.preventDefault();
+      if(e.key==='ArrowLeft') x+=step; if(e.key==='ArrowRight') x-=step;
+      if(e.key==='ArrowUp') y+=step; if(e.key==='ArrowDown') y-=step;
+      clamp(); apply();
+    }
+  });
+  addEventListener('resize',function(){ if(lb&&im.naturalWidth){
+    fit=Math.min(innerWidth*.94/im.naturalWidth, innerHeight*.9/im.naturalHeight);
+    s=Math.max(s,fit); clamp(); apply();
+  }});
+  addEventListener('popstate',close);
+})();
+
+/* demo video: never plays on its own; the button always starts it from the top */
+document.addEventListener('click',function(e){
+  var btn=e.target.closest&&e.target.closest('.vplay'); if(!btn) return;
+  var v=btn.parentNode.querySelector('video');
+  v.currentTime=0; v.controls=true; btn.hidden=true; v.play();
+  /* back to the protocol slide at the end, ready to start again */
+  v.onended=function(){ v.controls=false; v.load(); btn.querySelector('b').textContent='Watch again'; btn.hidden=false; btn.focus({preventScroll:true}); };
+});
+
+/* on the home page the rain belongs to the opening screen; it fades once the work list takes over */
+var rainSeen=null;
+function rainHero(home){
+  if(rainSeen){ rainSeen.disconnect(); rainSeen=null; }
+  var hero=home && app.querySelector('.intro');
+  if(!hero || !('IntersectionObserver' in window)) return;
+  rainSeen=new IntersectionObserver(function(es){
+    if(window.WATER) WATER.show(es[0].intersectionRatio>.35);
+  },{threshold:[0,.35,.6,1]});
+  rainSeen.observe(hero);
+}
+
+var NAV=document.querySelector('nav'), seen=null;
+function hush(home){
+  if(seen){ seen.disconnect(); seen=null; }
+  var h1=home && app.querySelector('.masthead h1');
+  if(!h1 || !('IntersectionObserver' in window)){ NAV.classList.remove('hush'); return; }
+  NAV.classList.add('hush');
+  /* the top 60px sit under the fixed nav, so they don't count as visible */
+  seen=new IntersectionObserver(function(es){
+    NAV.classList.toggle('hush', es[0].isIntersecting);
+  },{rootMargin:'-60px 0px 0px 0px'});
+  seen.observe(h1);
+}
+/* real paths, not #/. links are plain hrefs so they still work without js;
+   clicks are taken over here so no round trip happens between pages. */
+window.addEventListener('popstate',render);
+document.addEventListener('click',function(e){
+  if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey) return;
+  var a=e.target.closest&&e.target.closest('a'); if(!a) return;
+  if(a.target||a.hasAttribute('download')) return;
+  var href=a.getAttribute('href');
+  if(!href||href.charAt(0)!=='/') return;          /* mailto, http and # are left alone */
+  e.preventDefault();
+  if(href!==location.pathname){ history.pushState(null,'',href); render(); }
+});
+/* links shared while the site routed on #/ still land in the right place */
+(function(){ var m=(location.hash||'').match(/^#\/(.+)$/);
+  if(m){ history.replaceState(null,'','/'+m[1]); } })();
+render();
+</script>
+
+<script>
+(function(){
+  var c=document.getElementById('rain'), x=c.getContext('2d');
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var W=0,H=0,dpr=Math.min(devicePixelRatio||1,2),stroke='#a3b6c7';
+  var d=[],boost=1,on=true,running=false,R=Math.random;
+  /* ripples: now and then a drop lands on a section rule and spreads, stippled, then fades.
+     Only the Selected work rule (.gauge.drip) takes drops. It is a pseudo-element,
+     so it is measured off the .gauge box:
+     the line sits on its vertical centre and runs from past the label to the right edge. */
+  var rbCache=null, rbAt=0;
+  function ruleRect(t){
+    if(t-rbAt<200) return rbCache;
+    rbAt=t;
+    var g=document.querySelector('.gauge.drip');
+    if(!g) return rbCache=null;
+    var r=g.getBoundingClientRect(), y=r.top+r.height/2;
+    return rbCache = (r.width>260 && y>70 && y<H-12)
+      ? {top:y, left:r.left+r.width*.4, right:r.right-6} : null;
+  }
+  var rp=[],lastRp=0;
+  function ripple(px,py,t){ rp.push({x:px,y:py+scrollY,t:t,s:R()*6.28}); }
+  function drawRipples(t){
+    x.fillStyle=stroke;
+    var sy=scrollY;   /* ripples live in document space; the canvas is fixed */
+    for(var i=rp.length-1;i>=0;i--){
+      var q=rp[i], k=(t-q.t)/2200; if(k>=1){ rp.splice(i,1); continue; }
+      var e=1-Math.pow(1-k,3);
+      for(var ring=0;ring<3;ring++){
+        var kr=e-ring*.2; if(kr<=0) continue;
+        var rx=3+kr*32, ry=rx*.28, n=Math.max(14,Math.round(rx*1.5));
+        x.globalAlpha=(1-k)*[.95,.6,.35][ring];
+        for(var j=0;j<n;j++){
+          if(((j*7+ring*3)%5)===0) continue;            /* gaps, like a stippled pen */
+          var a=q.s+j/n*6.2832;
+          x.beginPath(); x.arc(q.x+Math.cos(a)*rx, q.y-sy+Math.sin(a)*ry, 1, 0, 6.2832); x.fill();
+        }
+      }
+    }
+    x.globalAlpha=1;
+  }
+
+  function col(){return getComputedStyle(document.documentElement).getPropertyValue('--rain').trim()||'#a3b6c7'}
+  function mk(seeded){return{x:R()*W, y:seeded?R()*H:-30, l:6+R()*22,
+    v:1.1+R()*2.6, a:.16+R()*.46, w:R()<.22?1.2:.7}}
+  function size(){
+    W=c.clientWidth; H=c.clientHeight; c.width=W*dpr; c.height=H*dpr;
+    x.setTransform(dpr,0,0,dpr,0,0); stroke=col();
+    var n=Math.round(Math.min(140,W*H/12000));
+    d=[]; for(var i=0;i<n;i++) d.push(mk(true));
+  }
+
+  function draw(move){
+    x.clearRect(0,0,W,H); x.strokeStyle=stroke; x.lineCap='round';
+    var t=performance.now(), rb=(move&&boost===1)?ruleRect(t):null;
+    for(var i=0;i<d.length;i++){
+      var o=d[i];
+      if(rb){ var tip=o.y+o.l, nt=tip+o.v;
+        if(tip<rb.top&&nt>=rb.top&&o.x>rb.left+20&&o.x<rb.right-20&&t-lastRp>420&&rp.length<6&&R()<.09){
+          ripple(o.x,rb.top,t); lastRp=t; d[i]=mk(false); continue; } }
+      x.globalAlpha=o.a; x.lineWidth=o.w;
+      x.beginPath(); x.moveTo(o.x,o.y);
+      x.lineTo(o.x+.6, o.y+o.l*(boost>1?boost*.6:1)); x.stroke();
+      if(move){ o.y+=o.v*boost; if(o.y>H+30) d[i]=mk(false); }
+    }
+    x.globalAlpha=1;
+    if(rp.length) drawRipples(t);
+    if(move && on){ requestAnimationFrame(function(){draw(true)}) }
+    else { running=false }
+  }
+  function start(){ if(running||reduce) return; running=true; draw(true) }
+
+  /* opening downpour: settles to ambient, never blocks reading */
+  function open(){
+    if(reduce||!on) return;
+    boost=3.1;
+    var extra=[], n=Math.round(d.length*1.5);
+    for(var i=0;i<n;i++){var o=mk(true); o.a*=.8; extra.push(o); d.push(o)}
+    var t0=performance.now();
+    (function ease(){
+      var k=Math.min(1,(performance.now()-t0)/2100), e=1-Math.pow(1-k,3);
+      boost=3.1-2.1*e;
+      var keep=Math.round(extra.length*(1-e));
+      while(extra.length>keep){var o=extra.pop(), j=d.indexOf(o); if(j>-1) d.splice(j,1)}
+      if(k<1) requestAnimationFrame(ease); else boost=1;
+    })();
+  }
+
+  window.WATER={
+    /* the rain belongs to the site; a case study is a reading surface */
+    show:function(v){
+      if(v===on) return;
+      on=v; c.classList.toggle('off',!v);
+      if(v){ size(); reduce?draw(false):start() }
+    },
+    open:open
+  };
+
+  var tm;
+  addEventListener('resize',function(){clearTimeout(tm);
+    tm=setTimeout(function(){ if(on){size(); if(reduce) draw(false)} },150)});
+  try{ var mq=matchMedia('(prefers-color-scheme: dark)');
+    (mq.addEventListener?mq.addEventListener.bind(mq,'change'):mq.addListener.bind(mq))(function(){
+      setTimeout(function(){ stroke=col(); if(reduce&&on) draw(false) },60)}) }catch(e){}
+
+  size();
+  reduce?draw(false):start();
+
+  /* this block loads after the first render: honour a deep link into a case study */
+  var hh=route();
+  var deep = window.P && P.some(function(p){return p.id===hh});
+  if(deep) WATER.show(false); else open();
+})();
+</script>
+</body>
+</html>
