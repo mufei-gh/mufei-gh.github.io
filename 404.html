@@ -2,19 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Mufei</title>
+<title>Mufei Chen</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex">
 <link rel="icon" href="/favicon.ico" sizes="any">
-<script>
-/* The site routes on the hash, so any real path lands here. Send the
-   old prerendered URLs to their new equivalents, everything else home. */
-(function () {
-  var p = location.pathname.replace(/\/+$/, '');
-  var to = p === '/about' ? '/#/about' : '/';
-  location.replace(to + (p === '/about' ? '' : location.hash));
-})();
-</script>
+<script>location.replace('/');</script>
 <meta http-equiv="refresh" content="0;url=/">
 <style>
   body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;
