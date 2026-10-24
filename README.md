@@ -1,6 +1,6 @@
 # mufei-gh.github.io
 
-Portfolio of Mufei Chen, served at <https://mufei-gh.github.io/>.
+Portfolio of Mufei, served at <https://mufei-gh.github.io/>.
 
 A single static page. No framework, no build step, no dependencies.
 
